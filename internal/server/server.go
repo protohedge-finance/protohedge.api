@@ -4,24 +4,28 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gmx-delta-neutral/gmx-neutral.api/internal/client"
-	"github.com/gmx-delta-neutral/gmx-neutral.api/internal/pnl"
+	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/gorilla/mux"
+	"github.com/protohedge/protohedge.api/internal/position_manager"
+	"github.com/rs/cors"
 )
 
 var port = ":8080"
 
 func CreateServer() {
-	queryClient, _, err := client.NewQueryClient()
+	ethClient, err := ethclient.Dial("http://localhost:8545")
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
-	pnlService := pnl.NewPnlService(queryClient)
-	pnlServer := NewPnlServer(pnlService)
+	positionManagerService := position_manager.NewPositionManagerService(ethClient)
+	positionManagerServer := NewPositionManagerServer(positionManagerService)
 
-	http.HandleFunc("/pnl", pnlServer.GetPnl)
+	router := mux.NewRouter()
+	router.HandleFunc("/position_manager/{address}", positionManagerServer.GetPositionManager)
+
 	log.Printf("Listening on port %s\n", port)
-
-	log.Fatal(http.ListenAndServe(port, nil))
+	handler := cors.Default().Handler(router)
+	log.Fatal(http.ListenAndServe(port, handler))
 }
