@@ -6,6 +6,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/gorilla/mux"
+	"github.com/protohedge/protohedge.api/internal/mapping"
 	"github.com/protohedge/protohedge.api/internal/position_manager"
 )
 
@@ -30,5 +31,6 @@ func (s *positionManagerServer) GetPositionManager(w http.ResponseWriter, r *htt
 		return
 	}
 
-	SuccessResWithData(w, positionManager)
+	positionManagerDto := mapping.ToPositionManagerResponseDto(positionManager)
+	SuccessResWithData(w, positionManagerDto)
 }

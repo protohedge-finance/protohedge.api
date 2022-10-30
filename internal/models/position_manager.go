@@ -7,14 +7,14 @@ import (
 )
 
 type TokenExposure struct {
-	Amount *big.Int
-	Token  string
+	Amount *big.Int `json:"amount"`
+	Token  string   `json:"token"`
 }
 
 type TokenAllocation struct {
-	Percentage   *big.Int
-	TokenAddress common.Address
-	Leverage     *big.Int
+	Percentage   *big.Int       `json:"percentage"`
+	TokenAddress common.Address `json:"tokenAddress"`
+	Leverage     *big.Int       `json:"leverage"`
 }
 
 type PositionManager struct {

@@ -4,6 +4,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/protohedge/protohedge.api/internal/contracts/position_manager_contract"
 	"github.com/protohedge/protohedge.api/internal/models"
+	"github.com/protohedge/protohedge.api/internal/models/dto"
 )
 
 func ToPositionManagerModel(positionManager position_manager_contract.PositionStats, address common.Address) models.PositionManager {
@@ -30,6 +31,36 @@ func ToPositionManagerModel(positionManager position_manager_contract.PositionSt
 		PositionWorth:   positionManager.PositionWorth,
 		CostBasis:       positionManager.CostBasis,
 		Pnl:             positionManager.Pnl,
+		TokenExposures:  tokenExposures,
+		TokenAllocation: tokenAllocations,
+		CanRebalance:    positionManager.CanRebalance,
+	}
+}
+
+func ToPositionManagerResponseDto(positionManager *models.PositionManager) *dto.PositionManagerResponseDto {
+	tokenExposures := []dto.TokenExposureResponseDto{}
+	tokenAllocations := []dto.TokenAllocationResponseDto{}
+
+	for _, exposure := range positionManager.TokenExposures {
+		tokenExposures = append(tokenExposures, dto.TokenExposureResponseDto{
+			Amount: exposure.Amount.String(),
+			Token:  exposure.Token,
+		})
+	}
+
+	for _, allocation := range positionManager.TokenAllocation {
+		tokenAllocations = append(tokenAllocations, dto.TokenAllocationResponseDto{
+			Percentage:   allocation.Percentage,
+			TokenAddress: allocation.TokenAddress.String(),
+			Leverage:     allocation.Leverage,
+		})
+	}
+
+	return &dto.PositionManagerResponseDto{
+		Address:         positionManager.Address.String(),
+		PositionWorth:   positionManager.PositionWorth.String(),
+		CostBasis:       positionManager.CostBasis.String(),
+		Pnl:             positionManager.Pnl.String(),
 		TokenExposures:  tokenExposures,
 		TokenAllocation: tokenAllocations,
 		CanRebalance:    positionManager.CanRebalance,

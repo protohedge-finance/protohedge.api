@@ -1,9 +1,11 @@
 package main
 
 import (
+	"github.com/protohedge/protohedge.api/internal/config"
 	"github.com/protohedge/protohedge.api/internal/server"
 )
 
 func main() {
-	server.CreateServer()
+	config := config.NewConfig()
+	server.CreateServer(config)
 }
