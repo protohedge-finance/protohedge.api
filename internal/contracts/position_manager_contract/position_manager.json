@@ -16,6 +16,11 @@
             "type": "address"
           },
           {
+            "internalType": "string",
+            "name": "symbol",
+            "type": "string"
+          },
+          {
             "internalType": "uint256",
             "name": "leverage",
             "type": "uint256"
@@ -50,6 +55,11 @@
             "internalType": "address",
             "name": "tokenAddress",
             "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "symbol",
+            "type": "string"
           },
           {
             "internalType": "uint256",
@@ -125,6 +135,11 @@
             "internalType": "address",
             "name": "token",
             "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "symbol",
+            "type": "string"
           }
         ],
         "internalType": "struct TokenExposure[]",
@@ -276,6 +291,11 @@
                 "internalType": "address",
                 "name": "token",
                 "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
               }
             ],
             "internalType": "struct TokenExposure[]",
@@ -293,6 +313,11 @@
                 "internalType": "address",
                 "name": "tokenAddress",
                 "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "symbol",
+                "type": "string"
               },
               {
                 "internalType": "uint256",

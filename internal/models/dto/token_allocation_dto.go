@@ -5,5 +5,6 @@ import "math/big"
 type TokenAllocationResponseDto struct {
 	Percentage   *big.Int `json:"percentage"`
 	TokenAddress string   `json:"tokenAddress"`
+	Symbol       string   `json:"symbol"`
 	Leverage     *big.Int `json:"leverage"`
 }

@@ -13,6 +13,7 @@ func ToPositionManagerModel(positionManager position_manager_contract.PositionSt
 
 	for _, exposure := range positionManager.TokenExposures {
 		tokenExposures = append(tokenExposures, &models.TokenExposure{
+			Symbol: exposure.Symbol,
 			Amount: exposure.Amount,
 			Token:  exposure.Token.String(),
 		})
@@ -20,6 +21,7 @@ func ToPositionManagerModel(positionManager position_manager_contract.PositionSt
 
 	for _, allocation := range positionManager.TokenAllocation {
 		tokenAllocations = append(tokenAllocations, &models.TokenAllocation{
+			Symbol:       allocation.Symbol,
 			Percentage:   allocation.Percentage,
 			TokenAddress: allocation.TokenAddress,
 			Leverage:     allocation.Leverage,
@@ -43,6 +45,7 @@ func ToPositionManagerResponseDto(positionManager *models.PositionManager) *dto.
 
 	for _, exposure := range positionManager.TokenExposures {
 		tokenExposures = append(tokenExposures, dto.TokenExposureResponseDto{
+			Symbol: exposure.Symbol,
 			Amount: exposure.Amount.String(),
 			Token:  exposure.Token,
 		})
@@ -50,6 +53,7 @@ func ToPositionManagerResponseDto(positionManager *models.PositionManager) *dto.
 
 	for _, allocation := range positionManager.TokenAllocation {
 		tokenAllocations = append(tokenAllocations, dto.TokenAllocationResponseDto{
+			Symbol:       allocation.Symbol,
 			Percentage:   allocation.Percentage,
 			TokenAddress: allocation.TokenAddress.String(),
 			Leverage:     allocation.Leverage,
