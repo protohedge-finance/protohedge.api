@@ -28,14 +28,15 @@ var (
 	_ = event.NewSubscription
 )
 
-// PositionStats is an auto generated low-level Go binding around an user-defined struct.
-type PositionStats struct {
-	PositionWorth   *big.Int
-	CostBasis       *big.Int
-	Pnl             *big.Int
-	TokenExposures  []TokenExposure
-	TokenAllocation []TokenAllocation
-	CanRebalance    bool
+// PositionManagerStats is an auto generated low-level Go binding around an user-defined struct.
+type PositionManagerStats struct {
+	PositionManagerAddress common.Address
+	PositionWorth          *big.Int
+	CostBasis              *big.Int
+	Pnl                    *big.Int
+	TokenExposures         []TokenExposure
+	TokenAllocation        []TokenAllocation
+	CanRebalance           bool
 }
 
 // TokenAllocation is an auto generated low-level Go binding around an user-defined struct.
@@ -44,6 +45,7 @@ type TokenAllocation struct {
 	TokenAddress common.Address
 	Symbol       string
 	Leverage     *big.Int
+	PositionType uint8
 }
 
 // TokenExposure is an auto generated low-level Go binding around an user-defined struct.
@@ -55,7 +57,7 @@ type TokenExposure struct {
 
 // PositionManagerContractMetaData contains all meta data concerning the PositionManagerContract contract.
 var PositionManagerContractMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"name\":\"allocation\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"allocationByToken\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"}],\"internalType\":\"structTokenAllocation\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"buy\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"canRebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"costBasis\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exposures\",\"outputs\":[{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"getRebalanceAction\",\"outputs\":[{\"internalType\":\"enumRebalanceAction\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"id\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pnl\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"positionWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"rebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"sell\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocation\",\"type\":\"tuple[]\"},{\"internalType\":\"bool\",\"name\":\"canRebalance\",\"type\":\"bool\"}],\"internalType\":\"structPositionStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"name\":\"allocation\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"allocationByToken\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"buy\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"canRebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"costBasis\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exposures\",\"outputs\":[{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"getRebalanceAction\",\"outputs\":[{\"internalType\":\"enumRebalanceAction\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"id\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pnl\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"positionWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"rebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"sell\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"positionManagerAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocation\",\"type\":\"tuple[]\"},{\"internalType\":\"bool\",\"name\":\"canRebalance\",\"type\":\"bool\"}],\"internalType\":\"structPositionManagerStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // PositionManagerContractABI is the input ABI used to generate the binding from.
@@ -206,7 +208,7 @@ func (_PositionManagerContract *PositionManagerContractTransactorRaw) Transact(o
 
 // Allocation is a free data retrieval call binding the contract method 0x88a17bde.
 //
-// Solidity: function allocation() view returns((uint256,address,string,uint256)[])
+// Solidity: function allocation() view returns((uint256,address,string,uint256,uint8)[])
 func (_PositionManagerContract *PositionManagerContractCaller) Allocation(opts *bind.CallOpts) ([]TokenAllocation, error) {
 	var out []interface{}
 	err := _PositionManagerContract.contract.Call(opts, &out, "allocation")
@@ -223,21 +225,21 @@ func (_PositionManagerContract *PositionManagerContractCaller) Allocation(opts *
 
 // Allocation is a free data retrieval call binding the contract method 0x88a17bde.
 //
-// Solidity: function allocation() view returns((uint256,address,string,uint256)[])
+// Solidity: function allocation() view returns((uint256,address,string,uint256,uint8)[])
 func (_PositionManagerContract *PositionManagerContractSession) Allocation() ([]TokenAllocation, error) {
 	return _PositionManagerContract.Contract.Allocation(&_PositionManagerContract.CallOpts)
 }
 
 // Allocation is a free data retrieval call binding the contract method 0x88a17bde.
 //
-// Solidity: function allocation() view returns((uint256,address,string,uint256)[])
+// Solidity: function allocation() view returns((uint256,address,string,uint256,uint8)[])
 func (_PositionManagerContract *PositionManagerContractCallerSession) Allocation() ([]TokenAllocation, error) {
 	return _PositionManagerContract.Contract.Allocation(&_PositionManagerContract.CallOpts)
 }
 
 // AllocationByToken is a free data retrieval call binding the contract method 0x0d95ee6a.
 //
-// Solidity: function allocationByToken(address tokenAddress) view returns((uint256,address,string,uint256))
+// Solidity: function allocationByToken(address tokenAddress) view returns((uint256,address,string,uint256,uint8))
 func (_PositionManagerContract *PositionManagerContractCaller) AllocationByToken(opts *bind.CallOpts, tokenAddress common.Address) (TokenAllocation, error) {
 	var out []interface{}
 	err := _PositionManagerContract.contract.Call(opts, &out, "allocationByToken", tokenAddress)
@@ -254,14 +256,14 @@ func (_PositionManagerContract *PositionManagerContractCaller) AllocationByToken
 
 // AllocationByToken is a free data retrieval call binding the contract method 0x0d95ee6a.
 //
-// Solidity: function allocationByToken(address tokenAddress) view returns((uint256,address,string,uint256))
+// Solidity: function allocationByToken(address tokenAddress) view returns((uint256,address,string,uint256,uint8))
 func (_PositionManagerContract *PositionManagerContractSession) AllocationByToken(tokenAddress common.Address) (TokenAllocation, error) {
 	return _PositionManagerContract.Contract.AllocationByToken(&_PositionManagerContract.CallOpts, tokenAddress)
 }
 
 // AllocationByToken is a free data retrieval call binding the contract method 0x0d95ee6a.
 //
-// Solidity: function allocationByToken(address tokenAddress) view returns((uint256,address,string,uint256))
+// Solidity: function allocationByToken(address tokenAddress) view returns((uint256,address,string,uint256,uint8))
 func (_PositionManagerContract *PositionManagerContractCallerSession) AllocationByToken(tokenAddress common.Address) (TokenAllocation, error) {
 	return _PositionManagerContract.Contract.AllocationByToken(&_PositionManagerContract.CallOpts, tokenAddress)
 }
@@ -421,6 +423,37 @@ func (_PositionManagerContract *PositionManagerContractCallerSession) Id() (*big
 	return _PositionManagerContract.Contract.Id(&_PositionManagerContract.CallOpts)
 }
 
+// Name is a free data retrieval call binding the contract method 0x06fdde03.
+//
+// Solidity: function name() view returns(string)
+func (_PositionManagerContract *PositionManagerContractCaller) Name(opts *bind.CallOpts) (string, error) {
+	var out []interface{}
+	err := _PositionManagerContract.contract.Call(opts, &out, "name")
+
+	if err != nil {
+		return *new(string), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+
+	return out0, err
+
+}
+
+// Name is a free data retrieval call binding the contract method 0x06fdde03.
+//
+// Solidity: function name() view returns(string)
+func (_PositionManagerContract *PositionManagerContractSession) Name() (string, error) {
+	return _PositionManagerContract.Contract.Name(&_PositionManagerContract.CallOpts)
+}
+
+// Name is a free data retrieval call binding the contract method 0x06fdde03.
+//
+// Solidity: function name() view returns(string)
+func (_PositionManagerContract *PositionManagerContractCallerSession) Name() (string, error) {
+	return _PositionManagerContract.Contract.Name(&_PositionManagerContract.CallOpts)
+}
+
 // Pnl is a free data retrieval call binding the contract method 0x3056f68b.
 //
 // Solidity: function pnl() view returns(int256)
@@ -516,16 +549,16 @@ func (_PositionManagerContract *PositionManagerContractCallerSession) Price() (*
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256)[],bool))
-func (_PositionManagerContract *PositionManagerContractCaller) Stats(opts *bind.CallOpts) (PositionStats, error) {
+// Solidity: function stats() view returns((address,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],bool))
+func (_PositionManagerContract *PositionManagerContractCaller) Stats(opts *bind.CallOpts) (PositionManagerStats, error) {
 	var out []interface{}
 	err := _PositionManagerContract.contract.Call(opts, &out, "stats")
 
 	if err != nil {
-		return *new(PositionStats), err
+		return *new(PositionManagerStats), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(PositionStats)).(*PositionStats)
+	out0 := *abi.ConvertType(out[0], new(PositionManagerStats)).(*PositionManagerStats)
 
 	return out0, err
 
@@ -533,15 +566,15 @@ func (_PositionManagerContract *PositionManagerContractCaller) Stats(opts *bind.
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256)[],bool))
-func (_PositionManagerContract *PositionManagerContractSession) Stats() (PositionStats, error) {
+// Solidity: function stats() view returns((address,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],bool))
+func (_PositionManagerContract *PositionManagerContractSession) Stats() (PositionManagerStats, error) {
 	return _PositionManagerContract.Contract.Stats(&_PositionManagerContract.CallOpts)
 }
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256)[],bool))
-func (_PositionManagerContract *PositionManagerContractCallerSession) Stats() (PositionStats, error) {
+// Solidity: function stats() view returns((address,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],bool))
+func (_PositionManagerContract *PositionManagerContractCallerSession) Stats() (PositionManagerStats, error) {
 	return _PositionManagerContract.Contract.Stats(&_PositionManagerContract.CallOpts)
 }
 

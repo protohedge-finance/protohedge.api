@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gorilla/mux"
 	cfg "github.com/protohedge/protohedge.api/internal/config"
-	"github.com/protohedge/protohedge.api/internal/position_manager"
+	"github.com/protohedge/protohedge.api/internal/vault"
 	"github.com/rs/cors"
 )
 
@@ -20,11 +20,11 @@ func CreateServer(config *cfg.Config) {
 		panic(err)
 	}
 
-	positionManagerService := position_manager.NewPositionManagerService(ethClient)
-	positionManagerServer := NewPositionManagerServer(positionManagerService)
+	positionManagerService := vault.NewVaultService(ethClient)
+	positionManagerServer := NewVaultServer(positionManagerService)
 
 	router := mux.NewRouter()
-	router.HandleFunc("/position_manager/{address}", positionManagerServer.GetPositionManager)
+	router.HandleFunc("/vault/{address}", positionManagerServer.GetVault)
 
 	log.Printf("Listening on port %s\n", port)
 	handler := cors.Default().Handler(router)
