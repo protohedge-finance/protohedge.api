@@ -1,4 +1,4 @@
-package server
+package http_server
 
 import (
 	"log"
@@ -6,8 +6,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gorilla/mux"
+	http_controllers "github.com/protohedge/protohedge.api/internal/adapters/http_server/controllers"
+	contract_repositories "github.com/protohedge/protohedge.api/internal/adapters/smart_contracts/repositories"
 	cfg "github.com/protohedge/protohedge.api/internal/config"
-	"github.com/protohedge/protohedge.api/internal/vault"
+	"github.com/protohedge/protohedge.api/internal/core/use_cases"
 	"github.com/rs/cors"
 )
 
@@ -20,8 +22,9 @@ func CreateServer(config *cfg.Config) {
 		panic(err)
 	}
 
-	positionManagerService := vault.NewVaultService(ethClient)
-	positionManagerServer := NewVaultServer(positionManagerService)
+	vaultRepository := contract_repositories.NewVaultRepository(ethClient)
+	vaultRetriever := use_cases.NewVaultRetriever(vaultRepository)
+	positionManagerServer := http_controllers.NewVaultController(vaultRetriever)
 
 	router := mux.NewRouter()
 	router.HandleFunc("/vault/{address}", positionManagerServer.GetVault)

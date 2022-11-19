@@ -1,4 +1,4 @@
-package dto
+package http_server_dtos
 
 import "math/big"
 

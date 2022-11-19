@@ -1,4 +1,4 @@
-package dto
+package http_server_dtos
 
 type TokenExposureResponseDto struct {
 	Amount string `json:"amount"`

@@ -1,10 +1,10 @@
-package server
+package http_server_utils
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/protohedge/protohedge.api/internal/models/enums"
+	"github.com/protohedge/protohedge.api/internal/core/domain/enums"
 )
 
 type ResponseType uint64

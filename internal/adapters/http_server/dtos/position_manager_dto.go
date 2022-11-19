@@ -1,4 +1,4 @@
-package dto
+package http_server_dtos
 
 type PositionManagerResponseDto struct {
 	PositionManagerAddress string                       `json:"positionManagerAddress"`
