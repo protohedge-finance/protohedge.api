@@ -1,13 +1,15 @@
 package use_cases
 
 import (
+	"context"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/protohedge/protohedge.api/internal/core/domain"
 	"github.com/protohedge/protohedge.api/internal/core/ports"
 )
 
 type VaultRetriever interface {
-	RetrieveVault(address common.Address) (*domain.Vault, error)
+	RetrieveVault(ctx context.Context, address common.Address) (*domain.Vault, error)
 }
 
 type vaultRetriever struct {
@@ -20,6 +22,6 @@ func NewVaultRetriever(vaultRepository ports.VaultRepository) VaultRetriever {
 	}
 }
 
-func (s *vaultRetriever) RetrieveVault(address common.Address) (*domain.Vault, error) {
-	return s.vaultRepository.GetVault()
+func (s *vaultRetriever) RetrieveVault(ctx context.Context, address common.Address) (*domain.Vault, error) {
+	return s.vaultRepository.GetVault(ctx, address)
 }

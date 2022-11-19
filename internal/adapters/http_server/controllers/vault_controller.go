@@ -24,7 +24,7 @@ func NewVaultController(vaultRetriever use_cases.VaultRetriever) vaultController
 func (s *vaultController) GetVault(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	address := common.HexToAddress(vars["address"])
-	vault, err := s.vaultRetriever.RetrieveVault(address)
+	vault, err := s.vaultRetriever.RetrieveVault(r.Context(), address)
 
 	if err != nil {
 		fmt.Println(err)
