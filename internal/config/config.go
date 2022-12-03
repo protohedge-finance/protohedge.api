@@ -9,21 +9,32 @@ import (
 )
 
 type Config struct {
+	Env    Env
 	RpcUrl string `yaml:"rpcUrl",envconfig:"RPC_URL"`
 }
 
-func GetConfigFileFromEnvVar() string {
-	envFile := os.Getenv("ENV_FILE")
-
-	switch envFile {
-	case "production":
+func GetConfigFileFromEnv(env Env) string {
+	switch env {
+	case Production:
 		return "config.production.yml"
 	}
 	return "config.local.yml"
 }
 
+func GetEnvFromEnvVar() Env {
+	env := os.Getenv("ENV")
+
+	switch env {
+	case "production":
+		return Production
+	}
+	return Local
+}
+
 func NewConfig() *Config {
-	f, err := os.Open(fmt.Sprintf("../../internal/config/%s", GetConfigFileFromEnvVar()))
+	env := GetEnvFromEnvVar()
+	configFile := GetConfigFileFromEnv(env)
+	f, err := os.Open(fmt.Sprintf("../../internal/config/%s", configFile))
 
 	if err != nil {
 		panic(err)
@@ -43,6 +54,8 @@ func NewConfig() *Config {
 	if err != nil {
 		panic(err)
 	}
+
+	cfg.Env = env
 
 	return &cfg
 }

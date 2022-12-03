@@ -50,7 +50,7 @@ func ToVaultPositionManagerModel(positionManager vault_contract.PositionManagerS
 		})
 	}
 
-	for _, allocation := range positionManager.TokenAllocation {
+	for _, allocation := range positionManager.TokenAllocations {
 		tokenAllocations = append(tokenAllocations, &domain.TokenAllocation{
 			Symbol:       allocation.Symbol,
 			Percentage:   allocation.Percentage,

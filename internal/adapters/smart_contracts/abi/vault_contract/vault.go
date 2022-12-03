@@ -31,11 +31,13 @@ var (
 // PositionManagerStats is an auto generated low-level Go binding around an user-defined struct.
 type PositionManagerStats struct {
 	PositionManagerAddress common.Address
+	Name                   string
 	PositionWorth          *big.Int
 	CostBasis              *big.Int
 	Pnl                    *big.Int
 	TokenExposures         []TokenExposure
-	TokenAllocation        []TokenAllocation
+	TokenAllocations       []TokenAllocation
+	Price                  *big.Int
 	CanRebalance           bool
 }
 
@@ -71,7 +73,7 @@ type VaultStats struct {
 
 // VaultContractMetaData contains all meta data concerning the VaultContract contract.
 var VaultContractMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_vaultName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_usdcAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmount\",\"type\":\"uint256\"}],\"name\":\"addLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAvailableLiquidity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPositionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"positionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"positionManager\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"internalType\":\"structRebalanceQueueData[]\",\"name\":\"rebalanceQueueData\",\"type\":\"tuple[]\"}],\"name\":\"rebalance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"phvTokenToBurn\",\"type\":\"uint256\"}],\"name\":\"removeLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"_positionManagers\",\"type\":\"address[]\"}],\"name\":\"setPositionManagers\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"vaultAddress\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"positionManagerAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocation\",\"type\":\"tuple[]\"},{\"internalType\":\"bool\",\"name\":\"canRebalance\",\"type\":\"bool\"}],\"internalType\":\"structPositionManagerStats[]\",\"name\":\"positionManagers\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"vaultWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"availableLiquidity\",\"type\":\"uint256\"}],\"internalType\":\"structVaultStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmount\",\"type\":\"uint256\"}],\"name\":\"addLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"amountToRebalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialGasLeft\",\"type\":\"uint256\"}],\"name\":\"estimateGasCost\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAvailableLiquidity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPositionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_vaultName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_usdcAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"positionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"positionManager\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"internalType\":\"structRebalanceQueueData[]\",\"name\":\"rebalanceQueueData\",\"type\":\"tuple[]\"}],\"name\":\"rebalance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"phvTokenToBurn\",\"type\":\"uint256\"}],\"name\":\"removeLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_ethPriceFeedAddress\",\"type\":\"address\"}],\"name\":\"setEthPriceFeedAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"_positionManagers\",\"type\":\"address[]\"}],\"name\":\"setPositionManagers\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"priceUtilsAddress\",\"type\":\"address\"}],\"name\":\"setPriceUtils\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"vaultAddress\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"positionManagerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocations\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"canRebalance\",\"type\":\"bool\"}],\"internalType\":\"structPositionManagerStats[]\",\"name\":\"positionManagers\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"vaultWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"availableLiquidity\",\"type\":\"uint256\"}],\"internalType\":\"structVaultStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultCostBasis\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // VaultContractABI is the input ABI used to generate the binding from.
@@ -220,6 +222,68 @@ func (_VaultContract *VaultContractTransactorRaw) Transact(opts *bind.TransactOp
 	return _VaultContract.Contract.contract.Transact(opts, method, params...)
 }
 
+// AmountToRebalance is a free data retrieval call binding the contract method 0x050ff61a.
+//
+// Solidity: function amountToRebalance() view returns(uint256)
+func (_VaultContract *VaultContractCaller) AmountToRebalance(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "amountToRebalance")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// AmountToRebalance is a free data retrieval call binding the contract method 0x050ff61a.
+//
+// Solidity: function amountToRebalance() view returns(uint256)
+func (_VaultContract *VaultContractSession) AmountToRebalance() (*big.Int, error) {
+	return _VaultContract.Contract.AmountToRebalance(&_VaultContract.CallOpts)
+}
+
+// AmountToRebalance is a free data retrieval call binding the contract method 0x050ff61a.
+//
+// Solidity: function amountToRebalance() view returns(uint256)
+func (_VaultContract *VaultContractCallerSession) AmountToRebalance() (*big.Int, error) {
+	return _VaultContract.Contract.AmountToRebalance(&_VaultContract.CallOpts)
+}
+
+// EstimateGasCost is a free data retrieval call binding the contract method 0xbd4725a6.
+//
+// Solidity: function estimateGasCost(uint256 initialGasLeft) view returns(uint256)
+func (_VaultContract *VaultContractCaller) EstimateGasCost(opts *bind.CallOpts, initialGasLeft *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "estimateGasCost", initialGasLeft)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// EstimateGasCost is a free data retrieval call binding the contract method 0xbd4725a6.
+//
+// Solidity: function estimateGasCost(uint256 initialGasLeft) view returns(uint256)
+func (_VaultContract *VaultContractSession) EstimateGasCost(initialGasLeft *big.Int) (*big.Int, error) {
+	return _VaultContract.Contract.EstimateGasCost(&_VaultContract.CallOpts, initialGasLeft)
+}
+
+// EstimateGasCost is a free data retrieval call binding the contract method 0xbd4725a6.
+//
+// Solidity: function estimateGasCost(uint256 initialGasLeft) view returns(uint256)
+func (_VaultContract *VaultContractCallerSession) EstimateGasCost(initialGasLeft *big.Int) (*big.Int, error) {
+	return _VaultContract.Contract.EstimateGasCost(&_VaultContract.CallOpts, initialGasLeft)
+}
+
 // GetAvailableLiquidity is a free data retrieval call binding the contract method 0x9b745aec.
 //
 // Solidity: function getAvailableLiquidity() view returns(uint256)
@@ -282,6 +346,37 @@ func (_VaultContract *VaultContractCallerSession) GetPositionManagers() ([]commo
 	return _VaultContract.Contract.GetPositionManagers(&_VaultContract.CallOpts)
 }
 
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() view returns(address)
+func (_VaultContract *VaultContractCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "owner")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() view returns(address)
+func (_VaultContract *VaultContractSession) Owner() (common.Address, error) {
+	return _VaultContract.Contract.Owner(&_VaultContract.CallOpts)
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() view returns(address)
+func (_VaultContract *VaultContractCallerSession) Owner() (common.Address, error) {
+	return _VaultContract.Contract.Owner(&_VaultContract.CallOpts)
+}
+
 // PositionManagers is a free data retrieval call binding the contract method 0x20e467f6.
 //
 // Solidity: function positionManagers(uint256 ) view returns(address)
@@ -313,9 +408,40 @@ func (_VaultContract *VaultContractCallerSession) PositionManagers(arg0 *big.Int
 	return _VaultContract.Contract.PositionManagers(&_VaultContract.CallOpts, arg0)
 }
 
+// ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
+//
+// Solidity: function proxiableUUID() view returns(bytes32)
+func (_VaultContract *VaultContractCaller) ProxiableUUID(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "proxiableUUID")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
+//
+// Solidity: function proxiableUUID() view returns(bytes32)
+func (_VaultContract *VaultContractSession) ProxiableUUID() ([32]byte, error) {
+	return _VaultContract.Contract.ProxiableUUID(&_VaultContract.CallOpts)
+}
+
+// ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
+//
+// Solidity: function proxiableUUID() view returns(bytes32)
+func (_VaultContract *VaultContractCallerSession) ProxiableUUID() ([32]byte, error) {
+	return _VaultContract.Contract.ProxiableUUID(&_VaultContract.CallOpts)
+}
+
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,(address,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],bool)[],uint256,uint256))
+// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,bool)[],uint256,uint256))
 func (_VaultContract *VaultContractCaller) Stats(opts *bind.CallOpts) (VaultStats, error) {
 	var out []interface{}
 	err := _VaultContract.contract.Call(opts, &out, "stats")
@@ -332,16 +458,47 @@ func (_VaultContract *VaultContractCaller) Stats(opts *bind.CallOpts) (VaultStat
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,(address,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],bool)[],uint256,uint256))
+// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,bool)[],uint256,uint256))
 func (_VaultContract *VaultContractSession) Stats() (VaultStats, error) {
 	return _VaultContract.Contract.Stats(&_VaultContract.CallOpts)
 }
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,(address,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],bool)[],uint256,uint256))
+// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,bool)[],uint256,uint256))
 func (_VaultContract *VaultContractCallerSession) Stats() (VaultStats, error) {
 	return _VaultContract.Contract.Stats(&_VaultContract.CallOpts)
+}
+
+// VaultCostBasis is a free data retrieval call binding the contract method 0x67c4ca99.
+//
+// Solidity: function vaultCostBasis() view returns(uint256)
+func (_VaultContract *VaultContractCaller) VaultCostBasis(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "vaultCostBasis")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// VaultCostBasis is a free data retrieval call binding the contract method 0x67c4ca99.
+//
+// Solidity: function vaultCostBasis() view returns(uint256)
+func (_VaultContract *VaultContractSession) VaultCostBasis() (*big.Int, error) {
+	return _VaultContract.Contract.VaultCostBasis(&_VaultContract.CallOpts)
+}
+
+// VaultCostBasis is a free data retrieval call binding the contract method 0x67c4ca99.
+//
+// Solidity: function vaultCostBasis() view returns(uint256)
+func (_VaultContract *VaultContractCallerSession) VaultCostBasis() (*big.Int, error) {
+	return _VaultContract.Contract.VaultCostBasis(&_VaultContract.CallOpts)
 }
 
 // VaultName is a free data retrieval call binding the contract method 0x0ace9ca0.
@@ -427,6 +584,27 @@ func (_VaultContract *VaultContractTransactorSession) AddLiquidity(usdcAmount *b
 	return _VaultContract.Contract.AddLiquidity(&_VaultContract.TransactOpts, usdcAmount)
 }
 
+// Initialize is a paid mutator transaction binding the contract method 0x7ab4339d.
+//
+// Solidity: function initialize(string _vaultName, address _usdcAddress) returns()
+func (_VaultContract *VaultContractTransactor) Initialize(opts *bind.TransactOpts, _vaultName string, _usdcAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "initialize", _vaultName, _usdcAddress)
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x7ab4339d.
+//
+// Solidity: function initialize(string _vaultName, address _usdcAddress) returns()
+func (_VaultContract *VaultContractSession) Initialize(_vaultName string, _usdcAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.Initialize(&_VaultContract.TransactOpts, _vaultName, _usdcAddress)
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x7ab4339d.
+//
+// Solidity: function initialize(string _vaultName, address _usdcAddress) returns()
+func (_VaultContract *VaultContractTransactorSession) Initialize(_vaultName string, _usdcAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.Initialize(&_VaultContract.TransactOpts, _vaultName, _usdcAddress)
+}
+
 // Rebalance is a paid mutator transaction binding the contract method 0xf009a1e0.
 //
 // Solidity: function rebalance((address,uint256)[] rebalanceQueueData) returns()
@@ -469,6 +647,48 @@ func (_VaultContract *VaultContractTransactorSession) RemoveLiquidity(phvTokenTo
 	return _VaultContract.Contract.RemoveLiquidity(&_VaultContract.TransactOpts, phvTokenToBurn)
 }
 
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_VaultContract *VaultContractTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "renounceOwnership")
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_VaultContract *VaultContractSession) RenounceOwnership() (*types.Transaction, error) {
+	return _VaultContract.Contract.RenounceOwnership(&_VaultContract.TransactOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_VaultContract *VaultContractTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+	return _VaultContract.Contract.RenounceOwnership(&_VaultContract.TransactOpts)
+}
+
+// SetEthPriceFeedAddress is a paid mutator transaction binding the contract method 0x1d1e75d3.
+//
+// Solidity: function setEthPriceFeedAddress(address _ethPriceFeedAddress) returns()
+func (_VaultContract *VaultContractTransactor) SetEthPriceFeedAddress(opts *bind.TransactOpts, _ethPriceFeedAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "setEthPriceFeedAddress", _ethPriceFeedAddress)
+}
+
+// SetEthPriceFeedAddress is a paid mutator transaction binding the contract method 0x1d1e75d3.
+//
+// Solidity: function setEthPriceFeedAddress(address _ethPriceFeedAddress) returns()
+func (_VaultContract *VaultContractSession) SetEthPriceFeedAddress(_ethPriceFeedAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.SetEthPriceFeedAddress(&_VaultContract.TransactOpts, _ethPriceFeedAddress)
+}
+
+// SetEthPriceFeedAddress is a paid mutator transaction binding the contract method 0x1d1e75d3.
+//
+// Solidity: function setEthPriceFeedAddress(address _ethPriceFeedAddress) returns()
+func (_VaultContract *VaultContractTransactorSession) SetEthPriceFeedAddress(_ethPriceFeedAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.SetEthPriceFeedAddress(&_VaultContract.TransactOpts, _ethPriceFeedAddress)
+}
+
 // SetPositionManagers is a paid mutator transaction binding the contract method 0xb38e85f8.
 //
 // Solidity: function setPositionManagers(address[] _positionManagers) returns()
@@ -488,4 +708,798 @@ func (_VaultContract *VaultContractSession) SetPositionManagers(_positionManager
 // Solidity: function setPositionManagers(address[] _positionManagers) returns()
 func (_VaultContract *VaultContractTransactorSession) SetPositionManagers(_positionManagers []common.Address) (*types.Transaction, error) {
 	return _VaultContract.Contract.SetPositionManagers(&_VaultContract.TransactOpts, _positionManagers)
+}
+
+// SetPriceUtils is a paid mutator transaction binding the contract method 0xbc890b8a.
+//
+// Solidity: function setPriceUtils(address priceUtilsAddress) returns()
+func (_VaultContract *VaultContractTransactor) SetPriceUtils(opts *bind.TransactOpts, priceUtilsAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "setPriceUtils", priceUtilsAddress)
+}
+
+// SetPriceUtils is a paid mutator transaction binding the contract method 0xbc890b8a.
+//
+// Solidity: function setPriceUtils(address priceUtilsAddress) returns()
+func (_VaultContract *VaultContractSession) SetPriceUtils(priceUtilsAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.SetPriceUtils(&_VaultContract.TransactOpts, priceUtilsAddress)
+}
+
+// SetPriceUtils is a paid mutator transaction binding the contract method 0xbc890b8a.
+//
+// Solidity: function setPriceUtils(address priceUtilsAddress) returns()
+func (_VaultContract *VaultContractTransactorSession) SetPriceUtils(priceUtilsAddress common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.SetPriceUtils(&_VaultContract.TransactOpts, priceUtilsAddress)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_VaultContract *VaultContractTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "transferOwnership", newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_VaultContract *VaultContractSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.TransferOwnership(&_VaultContract.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_VaultContract *VaultContractTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.TransferOwnership(&_VaultContract.TransactOpts, newOwner)
+}
+
+// UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
+//
+// Solidity: function upgradeTo(address newImplementation) returns()
+func (_VaultContract *VaultContractTransactor) UpgradeTo(opts *bind.TransactOpts, newImplementation common.Address) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "upgradeTo", newImplementation)
+}
+
+// UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
+//
+// Solidity: function upgradeTo(address newImplementation) returns()
+func (_VaultContract *VaultContractSession) UpgradeTo(newImplementation common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.UpgradeTo(&_VaultContract.TransactOpts, newImplementation)
+}
+
+// UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
+//
+// Solidity: function upgradeTo(address newImplementation) returns()
+func (_VaultContract *VaultContractTransactorSession) UpgradeTo(newImplementation common.Address) (*types.Transaction, error) {
+	return _VaultContract.Contract.UpgradeTo(&_VaultContract.TransactOpts, newImplementation)
+}
+
+// UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
+//
+// Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
+func (_VaultContract *VaultContractTransactor) UpgradeToAndCall(opts *bind.TransactOpts, newImplementation common.Address, data []byte) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "upgradeToAndCall", newImplementation, data)
+}
+
+// UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
+//
+// Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
+func (_VaultContract *VaultContractSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
+	return _VaultContract.Contract.UpgradeToAndCall(&_VaultContract.TransactOpts, newImplementation, data)
+}
+
+// UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
+//
+// Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
+func (_VaultContract *VaultContractTransactorSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
+	return _VaultContract.Contract.UpgradeToAndCall(&_VaultContract.TransactOpts, newImplementation, data)
+}
+
+// VaultContractAdminChangedIterator is returned from FilterAdminChanged and is used to iterate over the raw logs and unpacked data for AdminChanged events raised by the VaultContract contract.
+type VaultContractAdminChangedIterator struct {
+	Event *VaultContractAdminChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultContractAdminChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultContractAdminChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultContractAdminChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultContractAdminChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultContractAdminChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultContractAdminChanged represents a AdminChanged event raised by the VaultContract contract.
+type VaultContractAdminChanged struct {
+	PreviousAdmin common.Address
+	NewAdmin      common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterAdminChanged is a free log retrieval operation binding the contract event 0x7e644d79422f17c01e4894b5f4f588d331ebfa28653d42ae832dc59e38c9798f.
+//
+// Solidity: event AdminChanged(address previousAdmin, address newAdmin)
+func (_VaultContract *VaultContractFilterer) FilterAdminChanged(opts *bind.FilterOpts) (*VaultContractAdminChangedIterator, error) {
+
+	logs, sub, err := _VaultContract.contract.FilterLogs(opts, "AdminChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &VaultContractAdminChangedIterator{contract: _VaultContract.contract, event: "AdminChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchAdminChanged is a free log subscription operation binding the contract event 0x7e644d79422f17c01e4894b5f4f588d331ebfa28653d42ae832dc59e38c9798f.
+//
+// Solidity: event AdminChanged(address previousAdmin, address newAdmin)
+func (_VaultContract *VaultContractFilterer) WatchAdminChanged(opts *bind.WatchOpts, sink chan<- *VaultContractAdminChanged) (event.Subscription, error) {
+
+	logs, sub, err := _VaultContract.contract.WatchLogs(opts, "AdminChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultContractAdminChanged)
+				if err := _VaultContract.contract.UnpackLog(event, "AdminChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseAdminChanged is a log parse operation binding the contract event 0x7e644d79422f17c01e4894b5f4f588d331ebfa28653d42ae832dc59e38c9798f.
+//
+// Solidity: event AdminChanged(address previousAdmin, address newAdmin)
+func (_VaultContract *VaultContractFilterer) ParseAdminChanged(log types.Log) (*VaultContractAdminChanged, error) {
+	event := new(VaultContractAdminChanged)
+	if err := _VaultContract.contract.UnpackLog(event, "AdminChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultContractBeaconUpgradedIterator is returned from FilterBeaconUpgraded and is used to iterate over the raw logs and unpacked data for BeaconUpgraded events raised by the VaultContract contract.
+type VaultContractBeaconUpgradedIterator struct {
+	Event *VaultContractBeaconUpgraded // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultContractBeaconUpgradedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultContractBeaconUpgraded)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultContractBeaconUpgraded)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultContractBeaconUpgradedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultContractBeaconUpgradedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultContractBeaconUpgraded represents a BeaconUpgraded event raised by the VaultContract contract.
+type VaultContractBeaconUpgraded struct {
+	Beacon common.Address
+	Raw    types.Log // Blockchain specific contextual infos
+}
+
+// FilterBeaconUpgraded is a free log retrieval operation binding the contract event 0x1cf3b03a6cf19fa2baba4df148e9dcabedea7f8a5c07840e207e5c089be95d3e.
+//
+// Solidity: event BeaconUpgraded(address indexed beacon)
+func (_VaultContract *VaultContractFilterer) FilterBeaconUpgraded(opts *bind.FilterOpts, beacon []common.Address) (*VaultContractBeaconUpgradedIterator, error) {
+
+	var beaconRule []interface{}
+	for _, beaconItem := range beacon {
+		beaconRule = append(beaconRule, beaconItem)
+	}
+
+	logs, sub, err := _VaultContract.contract.FilterLogs(opts, "BeaconUpgraded", beaconRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultContractBeaconUpgradedIterator{contract: _VaultContract.contract, event: "BeaconUpgraded", logs: logs, sub: sub}, nil
+}
+
+// WatchBeaconUpgraded is a free log subscription operation binding the contract event 0x1cf3b03a6cf19fa2baba4df148e9dcabedea7f8a5c07840e207e5c089be95d3e.
+//
+// Solidity: event BeaconUpgraded(address indexed beacon)
+func (_VaultContract *VaultContractFilterer) WatchBeaconUpgraded(opts *bind.WatchOpts, sink chan<- *VaultContractBeaconUpgraded, beacon []common.Address) (event.Subscription, error) {
+
+	var beaconRule []interface{}
+	for _, beaconItem := range beacon {
+		beaconRule = append(beaconRule, beaconItem)
+	}
+
+	logs, sub, err := _VaultContract.contract.WatchLogs(opts, "BeaconUpgraded", beaconRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultContractBeaconUpgraded)
+				if err := _VaultContract.contract.UnpackLog(event, "BeaconUpgraded", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseBeaconUpgraded is a log parse operation binding the contract event 0x1cf3b03a6cf19fa2baba4df148e9dcabedea7f8a5c07840e207e5c089be95d3e.
+//
+// Solidity: event BeaconUpgraded(address indexed beacon)
+func (_VaultContract *VaultContractFilterer) ParseBeaconUpgraded(log types.Log) (*VaultContractBeaconUpgraded, error) {
+	event := new(VaultContractBeaconUpgraded)
+	if err := _VaultContract.contract.UnpackLog(event, "BeaconUpgraded", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultContractInitializedIterator is returned from FilterInitialized and is used to iterate over the raw logs and unpacked data for Initialized events raised by the VaultContract contract.
+type VaultContractInitializedIterator struct {
+	Event *VaultContractInitialized // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultContractInitializedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultContractInitialized)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultContractInitialized)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultContractInitializedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultContractInitializedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultContractInitialized represents a Initialized event raised by the VaultContract contract.
+type VaultContractInitialized struct {
+	Version uint8
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterInitialized is a free log retrieval operation binding the contract event 0x7f26b83ff96e1f2b6a682f133852f6798a09c465da95921460cefb3847402498.
+//
+// Solidity: event Initialized(uint8 version)
+func (_VaultContract *VaultContractFilterer) FilterInitialized(opts *bind.FilterOpts) (*VaultContractInitializedIterator, error) {
+
+	logs, sub, err := _VaultContract.contract.FilterLogs(opts, "Initialized")
+	if err != nil {
+		return nil, err
+	}
+	return &VaultContractInitializedIterator{contract: _VaultContract.contract, event: "Initialized", logs: logs, sub: sub}, nil
+}
+
+// WatchInitialized is a free log subscription operation binding the contract event 0x7f26b83ff96e1f2b6a682f133852f6798a09c465da95921460cefb3847402498.
+//
+// Solidity: event Initialized(uint8 version)
+func (_VaultContract *VaultContractFilterer) WatchInitialized(opts *bind.WatchOpts, sink chan<- *VaultContractInitialized) (event.Subscription, error) {
+
+	logs, sub, err := _VaultContract.contract.WatchLogs(opts, "Initialized")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultContractInitialized)
+				if err := _VaultContract.contract.UnpackLog(event, "Initialized", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseInitialized is a log parse operation binding the contract event 0x7f26b83ff96e1f2b6a682f133852f6798a09c465da95921460cefb3847402498.
+//
+// Solidity: event Initialized(uint8 version)
+func (_VaultContract *VaultContractFilterer) ParseInitialized(log types.Log) (*VaultContractInitialized, error) {
+	event := new(VaultContractInitialized)
+	if err := _VaultContract.contract.UnpackLog(event, "Initialized", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultContractOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the VaultContract contract.
+type VaultContractOwnershipTransferredIterator struct {
+	Event *VaultContractOwnershipTransferred // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultContractOwnershipTransferredIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultContractOwnershipTransferred)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultContractOwnershipTransferred)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultContractOwnershipTransferredIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultContractOwnershipTransferredIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultContractOwnershipTransferred represents a OwnershipTransferred event raised by the VaultContract contract.
+type VaultContractOwnershipTransferred struct {
+	PreviousOwner common.Address
+	NewOwner      common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_VaultContract *VaultContractFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*VaultContractOwnershipTransferredIterator, error) {
+
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
+	}
+
+	logs, sub, err := _VaultContract.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultContractOwnershipTransferredIterator{contract: _VaultContract.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
+}
+
+// WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_VaultContract *VaultContractFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *VaultContractOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
+
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
+	}
+
+	logs, sub, err := _VaultContract.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultContractOwnershipTransferred)
+				if err := _VaultContract.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseOwnershipTransferred is a log parse operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_VaultContract *VaultContractFilterer) ParseOwnershipTransferred(log types.Log) (*VaultContractOwnershipTransferred, error) {
+	event := new(VaultContractOwnershipTransferred)
+	if err := _VaultContract.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultContractUpgradedIterator is returned from FilterUpgraded and is used to iterate over the raw logs and unpacked data for Upgraded events raised by the VaultContract contract.
+type VaultContractUpgradedIterator struct {
+	Event *VaultContractUpgraded // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultContractUpgradedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultContractUpgraded)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultContractUpgraded)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultContractUpgradedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultContractUpgradedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultContractUpgraded represents a Upgraded event raised by the VaultContract contract.
+type VaultContractUpgraded struct {
+	Implementation common.Address
+	Raw            types.Log // Blockchain specific contextual infos
+}
+
+// FilterUpgraded is a free log retrieval operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
+//
+// Solidity: event Upgraded(address indexed implementation)
+func (_VaultContract *VaultContractFilterer) FilterUpgraded(opts *bind.FilterOpts, implementation []common.Address) (*VaultContractUpgradedIterator, error) {
+
+	var implementationRule []interface{}
+	for _, implementationItem := range implementation {
+		implementationRule = append(implementationRule, implementationItem)
+	}
+
+	logs, sub, err := _VaultContract.contract.FilterLogs(opts, "Upgraded", implementationRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultContractUpgradedIterator{contract: _VaultContract.contract, event: "Upgraded", logs: logs, sub: sub}, nil
+}
+
+// WatchUpgraded is a free log subscription operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
+//
+// Solidity: event Upgraded(address indexed implementation)
+func (_VaultContract *VaultContractFilterer) WatchUpgraded(opts *bind.WatchOpts, sink chan<- *VaultContractUpgraded, implementation []common.Address) (event.Subscription, error) {
+
+	var implementationRule []interface{}
+	for _, implementationItem := range implementation {
+		implementationRule = append(implementationRule, implementationItem)
+	}
+
+	logs, sub, err := _VaultContract.contract.WatchLogs(opts, "Upgraded", implementationRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultContractUpgraded)
+				if err := _VaultContract.contract.UnpackLog(event, "Upgraded", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseUpgraded is a log parse operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
+//
+// Solidity: event Upgraded(address indexed implementation)
+func (_VaultContract *VaultContractFilterer) ParseUpgraded(log types.Log) (*VaultContractUpgraded, error) {
+	event := new(VaultContractUpgraded)
+	if err := _VaultContract.contract.UnpackLog(event, "Upgraded", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }
