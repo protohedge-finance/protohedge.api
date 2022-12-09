@@ -18,7 +18,7 @@ func ToPositionManagerModel(positionManager position_manager_contract.PositionMa
 		})
 	}
 
-	for _, allocation := range positionManager.TokenAllocation {
+	for _, allocation := range positionManager.TokenAllocations {
 		tokenAllocations = append(tokenAllocations, &domain.TokenAllocation{
 			Symbol:       allocation.Symbol,
 			Percentage:   allocation.Percentage,
@@ -26,12 +26,15 @@ func ToPositionManagerModel(positionManager position_manager_contract.PositionMa
 			Leverage:     allocation.Leverage,
 		})
 	}
-
 	return domain.PositionManager{
 		PositionManagerAddress: positionManager.PositionManagerAddress,
+		Name:                   positionManager.Name,
 		PositionWorth:          positionManager.PositionWorth,
 		CostBasis:              positionManager.CostBasis,
 		Pnl:                    positionManager.Pnl,
+		CollateralRatio:        positionManager.CollateralRatio,
+		LoanWorth:              positionManager.LoanWorth,
+		Collateral:             positionManager.Collateral,
 		TokenExposures:         tokenExposures,
 		TokenAllocation:        tokenAllocations,
 		CanRebalance:           positionManager.CanRebalance,
@@ -61,9 +64,14 @@ func ToVaultPositionManagerModel(positionManager vault_contract.PositionManagerS
 
 	return domain.PositionManager{
 		PositionManagerAddress: positionManager.PositionManagerAddress,
+		Name:                   positionManager.Name,
 		PositionWorth:          positionManager.PositionWorth,
 		CostBasis:              positionManager.CostBasis,
 		Pnl:                    positionManager.Pnl,
+		CollateralRatio:        positionManager.CollateralRatio,
+		LoanWorth:              positionManager.LoanWorth,
+		LiquidationLevel:       positionManager.LiquidationLevel,
+		Collateral:             positionManager.Collateral,
 		TokenExposures:         tokenExposures,
 		TokenAllocation:        tokenAllocations,
 		CanRebalance:           positionManager.CanRebalance,

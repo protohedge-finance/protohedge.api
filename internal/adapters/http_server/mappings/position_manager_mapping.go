@@ -19,18 +19,24 @@ func ToPositionManagerResponseDto(positionManager domain.PositionManager) http_s
 
 	for _, allocation := range positionManager.TokenAllocation {
 		tokenAllocations = append(tokenAllocations, http_server_dtos.TokenAllocationResponseDto{
-			Symbol:       allocation.Symbol,
-			Percentage:   allocation.Percentage,
-			TokenAddress: allocation.TokenAddress.String(),
-			Leverage:     allocation.Leverage,
+			Symbol:          allocation.Symbol,
+			Percentage:      allocation.Percentage,
+			TokenAddress:    allocation.TokenAddress.String(),
+			Leverage:        allocation.Leverage,
+			CollateralRatio: allocation.CollateralRatio,
 		})
 	}
 
 	return http_server_dtos.PositionManagerResponseDto{
 		PositionManagerAddress: positionManager.PositionManagerAddress.String(),
+		Name:                   positionManager.Name,
 		PositionWorth:          positionManager.PositionWorth.String(),
 		CostBasis:              positionManager.CostBasis.String(),
 		Pnl:                    positionManager.Pnl.String(),
+		CollateralRatio:        positionManager.CollateralRatio.String(),
+		LoanWorth:              positionManager.LoanWorth.String(),
+		LiquidationLevel:       positionManager.LiquidationLevel.String(),
+		Collateral:             positionManager.Collateral.String(),
 		TokenExposures:         tokenExposures,
 		TokenAllocation:        tokenAllocations,
 		CanRebalance:           positionManager.CanRebalance,

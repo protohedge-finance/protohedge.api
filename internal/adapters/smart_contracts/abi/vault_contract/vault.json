@@ -395,6 +395,26 @@
                 "internalType": "bool",
                 "name": "canRebalance",
                 "type": "bool"
+              },
+              {
+                "internalType": "uint256",
+                "name": "collateralRatio",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "loanWorth",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "liquidationLevel",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "collateral",
+                "type": "uint256"
               }
             ],
             "internalType": "struct PositionManagerStats[]",
