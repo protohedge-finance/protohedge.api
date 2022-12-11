@@ -9,8 +9,9 @@ import (
 )
 
 type Config struct {
-	Env    Env
-	RpcUrl string `yaml:"rpcUrl",envconfig:"RPC_URL"`
+	Env                   Env
+	RpcUrl                string `yaml:"rpcUrl",envconfig:"RPC_URL"`
+	RedisConnectionString string `yaml:"redisConnectionString",envconfig:"REDIS_CONNECTION_STRING"`
 }
 
 func GetConfigFileFromEnv(env Env) string {

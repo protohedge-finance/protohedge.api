@@ -8,5 +8,6 @@ import (
 )
 
 type VaultRepository interface {
-	GetVault(ctx context.Context, address common.Address) (*domain.Vault, error)
+	GetVault(context.Context, common.Address) (*domain.Vault, error)
+	GetHistoricVaultPnl(context.Context, common.Address) ([]domain.TimePoint, error)
 }

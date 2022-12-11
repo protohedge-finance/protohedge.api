@@ -13,11 +13,13 @@ import (
 
 type vaultController struct {
 	vaultRetriever use_cases.VaultRetriever
+	pnlRetriever   use_cases.PnlRetriever
 }
 
-func NewVaultController(vaultRetriever use_cases.VaultRetriever) vaultController {
+func NewVaultController(vaultRetriever use_cases.VaultRetriever, pnlRetriever use_cases.PnlRetriever) vaultController {
 	return vaultController{
 		vaultRetriever: vaultRetriever,
+		pnlRetriever:   pnlRetriever,
 	}
 }
 
@@ -34,4 +36,18 @@ func (s *vaultController) GetVault(w http.ResponseWriter, r *http.Request) {
 
 	positionManagerDto := http_server_mappings.ToVaultResponseDto(vault)
 	http_server_utils.SuccessResWithData(w, positionManagerDto)
+}
+
+func (s *vaultController) GetHistoricVaultPnl(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	address := common.HexToAddress(vars["address"])
+	historicPnl, err := s.pnlRetriever.RetrieveHistoricPnl(r.Context(), address)
+
+	if err != nil {
+		http_server_utils.ErrorRes(w)
+		return
+	}
+
+	historicPnlDto := http_server_mappings.ToHistoricPnlDto(historicPnl)
+	http_server_utils.SuccessResWithData(w, historicPnlDto)
 }
