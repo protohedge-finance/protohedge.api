@@ -31,8 +31,11 @@ func CreateServer(config *cfg.Config) {
 	vaultRetriever := use_cases.NewVaultRetriever(vaultRepository)
 	pnlRetriever := use_cases.NewPnlRetriever(vaultRepository)
 	vaultController := http_controllers.NewVaultController(vaultRetriever, pnlRetriever)
+	statusController := http_controllers.NewStatusController()
 
 	router := mux.NewRouter()
+
+	router.HandleFunc("/status", statusController.GetStatus)
 	router.HandleFunc("/vault/{address}", vaultController.GetVault)
 	router.HandleFunc("/vault/{address}/historicPnl", vaultController.GetHistoricVaultPnl)
 
