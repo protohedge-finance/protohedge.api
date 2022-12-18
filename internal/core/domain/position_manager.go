@@ -32,5 +32,4 @@ type PositionManager struct {
 	Collateral             *big.Int           `json:"collateral"`
 	TokenExposures         []*TokenExposure   `json:"tokenExposures"`
 	TokenAllocation        []*TokenAllocation `json:"tokenAllocation"`
-	CanRebalance           bool               `json:"canRebalance"`
 }

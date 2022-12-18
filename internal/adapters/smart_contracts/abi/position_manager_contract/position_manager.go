@@ -38,7 +38,6 @@ type PositionManagerStats struct {
 	TokenExposures         []TokenExposure
 	TokenAllocations       []TokenAllocation
 	Price                  *big.Int
-	CanRebalance           bool
 	CollateralRatio        *big.Int
 	LoanWorth              *big.Int
 	LiquidationLevel       *big.Int
@@ -63,7 +62,7 @@ type TokenExposure struct {
 
 // PositionManagerContractMetaData contains all meta data concerning the PositionManagerContract contract.
 var PositionManagerContractMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"allocationByToken\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocations\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"buy\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"canRebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"collateralRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"compound\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"costBasis\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exposures\",\"outputs\":[{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"getRebalanceAction\",\"outputs\":[{\"internalType\":\"enumRebalanceAction\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"id\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pnl\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"positionWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"rebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"sell\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"positionManagerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocations\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"canRebalance\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"collateralRatio\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"loanWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidationLevel\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"collateral\",\"type\":\"uint256\"}],\"internalType\":\"structPositionManagerStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"allocationByToken\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocations\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"buy\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"canRebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"collateralRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"compound\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"costBasis\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exposures\",\"outputs\":[{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"getRebalanceAction\",\"outputs\":[{\"internalType\":\"enumRebalanceAction\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"id\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pnl\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"positionWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"rebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"name\":\"rebalanceInfo\",\"outputs\":[{\"internalType\":\"enumRebalanceAction\",\"name\":\"\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"amountToBuyOrSell\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"sell\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"positionManagerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocations\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"collateralRatio\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"loanWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidationLevel\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"collateral\",\"type\":\"uint256\"}],\"internalType\":\"structPositionManagerStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // PositionManagerContractABI is the input ABI used to generate the binding from.
@@ -274,12 +273,12 @@ func (_PositionManagerContract *PositionManagerContractCallerSession) Allocation
 	return _PositionManagerContract.Contract.Allocations(&_PositionManagerContract.CallOpts)
 }
 
-// CanRebalance is a free data retrieval call binding the contract method 0xa06880c0.
+// CanRebalance is a free data retrieval call binding the contract method 0x7e83cfec.
 //
-// Solidity: function canRebalance() view returns(bool)
-func (_PositionManagerContract *PositionManagerContractCaller) CanRebalance(opts *bind.CallOpts) (bool, error) {
+// Solidity: function canRebalance(uint256 ) view returns(bool)
+func (_PositionManagerContract *PositionManagerContractCaller) CanRebalance(opts *bind.CallOpts, arg0 *big.Int) (bool, error) {
 	var out []interface{}
-	err := _PositionManagerContract.contract.Call(opts, &out, "canRebalance")
+	err := _PositionManagerContract.contract.Call(opts, &out, "canRebalance", arg0)
 
 	if err != nil {
 		return *new(bool), err
@@ -291,18 +290,18 @@ func (_PositionManagerContract *PositionManagerContractCaller) CanRebalance(opts
 
 }
 
-// CanRebalance is a free data retrieval call binding the contract method 0xa06880c0.
+// CanRebalance is a free data retrieval call binding the contract method 0x7e83cfec.
 //
-// Solidity: function canRebalance() view returns(bool)
-func (_PositionManagerContract *PositionManagerContractSession) CanRebalance() (bool, error) {
-	return _PositionManagerContract.Contract.CanRebalance(&_PositionManagerContract.CallOpts)
+// Solidity: function canRebalance(uint256 ) view returns(bool)
+func (_PositionManagerContract *PositionManagerContractSession) CanRebalance(arg0 *big.Int) (bool, error) {
+	return _PositionManagerContract.Contract.CanRebalance(&_PositionManagerContract.CallOpts, arg0)
 }
 
-// CanRebalance is a free data retrieval call binding the contract method 0xa06880c0.
+// CanRebalance is a free data retrieval call binding the contract method 0x7e83cfec.
 //
-// Solidity: function canRebalance() view returns(bool)
-func (_PositionManagerContract *PositionManagerContractCallerSession) CanRebalance() (bool, error) {
-	return _PositionManagerContract.Contract.CanRebalance(&_PositionManagerContract.CallOpts)
+// Solidity: function canRebalance(uint256 ) view returns(bool)
+func (_PositionManagerContract *PositionManagerContractCallerSession) CanRebalance(arg0 *big.Int) (bool, error) {
+	return _PositionManagerContract.Contract.CanRebalance(&_PositionManagerContract.CallOpts, arg0)
 }
 
 // CollateralRatio is a free data retrieval call binding the contract method 0xb4eae1cb.
@@ -584,9 +583,41 @@ func (_PositionManagerContract *PositionManagerContractCallerSession) Price() (*
 	return _PositionManagerContract.Contract.Price(&_PositionManagerContract.CallOpts)
 }
 
+// RebalanceInfo is a free data retrieval call binding the contract method 0xbf92f18f.
+//
+// Solidity: function rebalanceInfo(uint256 usdcAmountToHave) view returns(uint8, uint256 amountToBuyOrSell)
+func (_PositionManagerContract *PositionManagerContractCaller) RebalanceInfo(opts *bind.CallOpts, usdcAmountToHave *big.Int) (uint8, *big.Int, error) {
+	var out []interface{}
+	err := _PositionManagerContract.contract.Call(opts, &out, "rebalanceInfo", usdcAmountToHave)
+
+	if err != nil {
+		return *new(uint8), *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(uint8)).(*uint8)
+	out1 := *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+
+	return out0, out1, err
+
+}
+
+// RebalanceInfo is a free data retrieval call binding the contract method 0xbf92f18f.
+//
+// Solidity: function rebalanceInfo(uint256 usdcAmountToHave) view returns(uint8, uint256 amountToBuyOrSell)
+func (_PositionManagerContract *PositionManagerContractSession) RebalanceInfo(usdcAmountToHave *big.Int) (uint8, *big.Int, error) {
+	return _PositionManagerContract.Contract.RebalanceInfo(&_PositionManagerContract.CallOpts, usdcAmountToHave)
+}
+
+// RebalanceInfo is a free data retrieval call binding the contract method 0xbf92f18f.
+//
+// Solidity: function rebalanceInfo(uint256 usdcAmountToHave) view returns(uint8, uint256 amountToBuyOrSell)
+func (_PositionManagerContract *PositionManagerContractCallerSession) RebalanceInfo(usdcAmountToHave *big.Int) (uint8, *big.Int, error) {
+	return _PositionManagerContract.Contract.RebalanceInfo(&_PositionManagerContract.CallOpts, usdcAmountToHave)
+}
+
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,bool,uint256,uint256,uint256,uint256))
+// Solidity: function stats() view returns((address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256))
 func (_PositionManagerContract *PositionManagerContractCaller) Stats(opts *bind.CallOpts) (PositionManagerStats, error) {
 	var out []interface{}
 	err := _PositionManagerContract.contract.Call(opts, &out, "stats")
@@ -603,14 +634,14 @@ func (_PositionManagerContract *PositionManagerContractCaller) Stats(opts *bind.
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,bool,uint256,uint256,uint256,uint256))
+// Solidity: function stats() view returns((address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256))
 func (_PositionManagerContract *PositionManagerContractSession) Stats() (PositionManagerStats, error) {
 	return _PositionManagerContract.Contract.Stats(&_PositionManagerContract.CallOpts)
 }
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,bool,uint256,uint256,uint256,uint256))
+// Solidity: function stats() view returns((address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256))
 func (_PositionManagerContract *PositionManagerContractCallerSession) Stats() (PositionManagerStats, error) {
 	return _PositionManagerContract.Contract.Stats(&_PositionManagerContract.CallOpts)
 }

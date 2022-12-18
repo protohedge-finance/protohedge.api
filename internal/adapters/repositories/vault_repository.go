@@ -41,6 +41,7 @@ func (v *vaultRepository) GetVault(ctx context.Context, address common.Address) 
 	result, err := ctr.Stats(callOpts)
 
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 

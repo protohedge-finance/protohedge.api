@@ -39,6 +39,5 @@ func ToPositionManagerResponseDto(positionManager domain.PositionManager) http_s
 		Collateral:             positionManager.Collateral.String(),
 		TokenExposures:         tokenExposures,
 		TokenAllocation:        tokenAllocations,
-		CanRebalance:           positionManager.CanRebalance,
 	}
 }

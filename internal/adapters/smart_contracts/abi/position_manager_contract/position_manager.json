@@ -105,7 +105,13 @@
       "type": "function"
     },
     {
-      "inputs": [],
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "name": "canRebalance",
       "outputs": [
         {
@@ -287,6 +293,30 @@
       "inputs": [
         {
           "internalType": "uint256",
+          "name": "usdcAmountToHave",
+          "type": "uint256"
+        }
+      ],
+      "name": "rebalanceInfo",
+      "outputs": [
+        {
+          "internalType": "enum RebalanceAction",
+          "name": "",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountToBuyOrSell",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
@@ -391,11 +421,6 @@
               "internalType": "uint256",
               "name": "price",
               "type": "uint256"
-            },
-            {
-              "internalType": "bool",
-              "name": "canRebalance",
-              "type": "bool"
             },
             {
               "internalType": "uint256",

@@ -37,7 +37,6 @@ func ToPositionManagerModel(positionManager position_manager_contract.PositionMa
 		Collateral:             positionManager.Collateral,
 		TokenExposures:         tokenExposures,
 		TokenAllocation:        tokenAllocations,
-		CanRebalance:           positionManager.CanRebalance,
 	}
 }
 
@@ -74,7 +73,6 @@ func ToVaultPositionManagerModel(positionManager vault_contract.PositionManagerS
 		Collateral:             positionManager.Collateral,
 		TokenExposures:         tokenExposures,
 		TokenAllocation:        tokenAllocations,
-		CanRebalance:           positionManager.CanRebalance,
 	}
 }
 
