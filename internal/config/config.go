@@ -9,7 +9,7 @@ import (
 )
 
 type Config struct {
-	Env                   Env
+	Env                   string `yaml:"env"`
 	RpcUrl                string `yaml:"rpcUrl",envconfig:"RPC_URL"`
 	RedisConnectionString string `yaml:"redisConnectionString",envconfig:"REDIS_CONNECTION_STRING"`
 }
@@ -24,12 +24,12 @@ func GetConfigFileFromEnv(env Env) string {
 
 func GetEnvFromEnvVar() Env {
 	env := os.Getenv("ENV")
-
 	switch env {
 	case "production":
 		return Production
+	default:
+		return Local
 	}
-	return Local
 }
 
 func NewConfig() *Config {
@@ -55,8 +55,6 @@ func NewConfig() *Config {
 	if err != nil {
 		panic(err)
 	}
-
-	cfg.Env = env
 
 	return &cfg
 }

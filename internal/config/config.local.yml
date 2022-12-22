@@ -1,2 +1,3 @@
+env: local
 rpcUrl: http://localhost:8545
 redisConnectionString: localhost:6379

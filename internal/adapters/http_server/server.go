@@ -1,6 +1,7 @@
 package http_server
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -17,6 +18,8 @@ import (
 var port = ":8080"
 
 func CreateServer(config *cfg.Config) {
+	fmt.Println("rpc url is: ")
+	fmt.Println(config.RpcUrl)
 	ethClient, err := ethclient.Dial(config.RpcUrl)
 
 	redisClient := redis.NewClient(&redis.Options{
