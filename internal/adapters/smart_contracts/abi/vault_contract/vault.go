@@ -72,11 +72,14 @@ type VaultStats struct {
 	PositionManagers   []PositionManagerStats
 	VaultWorth         *big.Int
 	AvailableLiquidity *big.Int
+	PositionsWorth     *big.Int
+	CostBasis          *big.Int
+	Pnl                *big.Int
 }
 
 // VaultContractMetaData contains all meta data concerning the VaultContract contract.
 var VaultContractMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmount\",\"type\":\"uint256\"}],\"name\":\"addLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"amountToRebalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialGasLeft\",\"type\":\"uint256\"}],\"name\":\"estimateGasCost\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAvailableLiquidity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPositionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_vaultName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_usdcAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pnl\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"positionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"positionManager\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"internalType\":\"structRebalanceQueueData[]\",\"name\":\"rebalanceQueueData\",\"type\":\"tuple[]\"}],\"name\":\"rebalance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"phvTokenToBurn\",\"type\":\"uint256\"}],\"name\":\"removeLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_ethPriceFeedAddress\",\"type\":\"address\"}],\"name\":\"setEthPriceFeedAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"_positionManagers\",\"type\":\"address[]\"}],\"name\":\"setPositionManagers\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"priceUtilsAddress\",\"type\":\"address\"}],\"name\":\"setPriceUtils\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"vaultAddress\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"positionManagerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocations\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"collateralRatio\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"loanWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidationLevel\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"collateral\",\"type\":\"uint256\"}],\"internalType\":\"structPositionManagerStats[]\",\"name\":\"positionManagers\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"vaultWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"availableLiquidity\",\"type\":\"uint256\"}],\"internalType\":\"structVaultStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultCostBasis\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"positionManager\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"errorMessage\",\"type\":\"string\"}],\"name\":\"PositionManagerCannotRebalance\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"usdcAmount\",\"type\":\"uint256\"}],\"name\":\"addLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"amountToRebalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialGasLeft\",\"type\":\"uint256\"}],\"name\":\"estimateGasCost\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAvailableLiquidity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPositionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_vaultName\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_usdcAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_priceUtilsAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_ethPriceFeedAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_rebalancePercent\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pnl\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"positionManagers\",\"outputs\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"positionsWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"positionManager\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"internalType\":\"structRebalanceQueueData[]\",\"name\":\"rebalanceQueueData\",\"type\":\"tuple[]\"}],\"name\":\"rebalance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rebalancePercent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"phvTokenToBurn\",\"type\":\"uint256\"}],\"name\":\"removeLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_ethPriceFeedAddress\",\"type\":\"address\"}],\"name\":\"setEthPriceFeedAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contractIPositionManager[]\",\"name\":\"_positionManagers\",\"type\":\"address[]\"}],\"name\":\"setPositionManagers\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"priceUtilsAddress\",\"type\":\"address\"}],\"name\":\"setPriceUtils\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_rebalancePercent\",\"type\":\"uint256\"}],\"name\":\"setRebalancePercent\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"contractIPositionManager\",\"name\":\"positionManager\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"usdcAmountToHave\",\"type\":\"uint256\"}],\"internalType\":\"structRebalanceQueueData[]\",\"name\":\"rebalanceQueueData\",\"type\":\"tuple[]\"}],\"name\":\"shouldRebalance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stats\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"vaultAddress\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"positionManagerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"positionWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"},{\"components\":[{\"internalType\":\"int256\",\"name\":\"amount\",\"type\":\"int256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"}],\"internalType\":\"structTokenExposure[]\",\"name\":\"tokenExposures\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"percentage\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"leverage\",\"type\":\"uint256\"},{\"internalType\":\"enumPositionType\",\"name\":\"positionType\",\"type\":\"uint8\"}],\"internalType\":\"structTokenAllocation[]\",\"name\":\"tokenAllocations\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"collateralRatio\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"loanWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidationLevel\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"collateral\",\"type\":\"uint256\"}],\"internalType\":\"structPositionManagerStats[]\",\"name\":\"positionManagers\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"vaultWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"availableLiquidity\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"positionsWorth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"costBasis\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pnl\",\"type\":\"uint256\"}],\"internalType\":\"structVaultStats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultCostBasis\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultWorth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // VaultContractABI is the input ABI used to generate the binding from.
@@ -442,6 +445,37 @@ func (_VaultContract *VaultContractCallerSession) PositionManagers(arg0 *big.Int
 	return _VaultContract.Contract.PositionManagers(&_VaultContract.CallOpts, arg0)
 }
 
+// PositionsWorth is a free data retrieval call binding the contract method 0x043998bc.
+//
+// Solidity: function positionsWorth() view returns(uint256)
+func (_VaultContract *VaultContractCaller) PositionsWorth(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "positionsWorth")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// PositionsWorth is a free data retrieval call binding the contract method 0x043998bc.
+//
+// Solidity: function positionsWorth() view returns(uint256)
+func (_VaultContract *VaultContractSession) PositionsWorth() (*big.Int, error) {
+	return _VaultContract.Contract.PositionsWorth(&_VaultContract.CallOpts)
+}
+
+// PositionsWorth is a free data retrieval call binding the contract method 0x043998bc.
+//
+// Solidity: function positionsWorth() view returns(uint256)
+func (_VaultContract *VaultContractCallerSession) PositionsWorth() (*big.Int, error) {
+	return _VaultContract.Contract.PositionsWorth(&_VaultContract.CallOpts)
+}
+
 // ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
 //
 // Solidity: function proxiableUUID() view returns(bytes32)
@@ -473,9 +507,72 @@ func (_VaultContract *VaultContractCallerSession) ProxiableUUID() ([32]byte, err
 	return _VaultContract.Contract.ProxiableUUID(&_VaultContract.CallOpts)
 }
 
+// RebalancePercent is a free data retrieval call binding the contract method 0xf38c5ccc.
+//
+// Solidity: function rebalancePercent() view returns(uint256)
+func (_VaultContract *VaultContractCaller) RebalancePercent(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "rebalancePercent")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// RebalancePercent is a free data retrieval call binding the contract method 0xf38c5ccc.
+//
+// Solidity: function rebalancePercent() view returns(uint256)
+func (_VaultContract *VaultContractSession) RebalancePercent() (*big.Int, error) {
+	return _VaultContract.Contract.RebalancePercent(&_VaultContract.CallOpts)
+}
+
+// RebalancePercent is a free data retrieval call binding the contract method 0xf38c5ccc.
+//
+// Solidity: function rebalancePercent() view returns(uint256)
+func (_VaultContract *VaultContractCallerSession) RebalancePercent() (*big.Int, error) {
+	return _VaultContract.Contract.RebalancePercent(&_VaultContract.CallOpts)
+}
+
+// ShouldRebalance is a free data retrieval call binding the contract method 0x13371519.
+//
+// Solidity: function shouldRebalance((address,uint256)[] rebalanceQueueData) view returns(bool, string)
+func (_VaultContract *VaultContractCaller) ShouldRebalance(opts *bind.CallOpts, rebalanceQueueData []RebalanceQueueData) (bool, string, error) {
+	var out []interface{}
+	err := _VaultContract.contract.Call(opts, &out, "shouldRebalance", rebalanceQueueData)
+
+	if err != nil {
+		return *new(bool), *new(string), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+	out1 := *abi.ConvertType(out[1], new(string)).(*string)
+
+	return out0, out1, err
+
+}
+
+// ShouldRebalance is a free data retrieval call binding the contract method 0x13371519.
+//
+// Solidity: function shouldRebalance((address,uint256)[] rebalanceQueueData) view returns(bool, string)
+func (_VaultContract *VaultContractSession) ShouldRebalance(rebalanceQueueData []RebalanceQueueData) (bool, string, error) {
+	return _VaultContract.Contract.ShouldRebalance(&_VaultContract.CallOpts, rebalanceQueueData)
+}
+
+// ShouldRebalance is a free data retrieval call binding the contract method 0x13371519.
+//
+// Solidity: function shouldRebalance((address,uint256)[] rebalanceQueueData) view returns(bool, string)
+func (_VaultContract *VaultContractCallerSession) ShouldRebalance(rebalanceQueueData []RebalanceQueueData) (bool, string, error) {
+	return _VaultContract.Contract.ShouldRebalance(&_VaultContract.CallOpts, rebalanceQueueData)
+}
+
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256)[],uint256,uint256))
+// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256)[],uint256,uint256,uint256,uint256,uint256))
 func (_VaultContract *VaultContractCaller) Stats(opts *bind.CallOpts) (VaultStats, error) {
 	var out []interface{}
 	err := _VaultContract.contract.Call(opts, &out, "stats")
@@ -492,14 +589,14 @@ func (_VaultContract *VaultContractCaller) Stats(opts *bind.CallOpts) (VaultStat
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256)[],uint256,uint256))
+// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256)[],uint256,uint256,uint256,uint256,uint256))
 func (_VaultContract *VaultContractSession) Stats() (VaultStats, error) {
 	return _VaultContract.Contract.Stats(&_VaultContract.CallOpts)
 }
 
 // Stats is a free data retrieval call binding the contract method 0xd80528ae.
 //
-// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256)[],uint256,uint256))
+// Solidity: function stats() view returns((address,(address,string,uint256,uint256,int256,(int256,address,string)[],(uint256,address,string,uint256,uint8)[],uint256,uint256,uint256,uint256,uint256)[],uint256,uint256,uint256,uint256,uint256))
 func (_VaultContract *VaultContractCallerSession) Stats() (VaultStats, error) {
 	return _VaultContract.Contract.Stats(&_VaultContract.CallOpts)
 }
@@ -618,25 +715,25 @@ func (_VaultContract *VaultContractTransactorSession) AddLiquidity(usdcAmount *b
 	return _VaultContract.Contract.AddLiquidity(&_VaultContract.TransactOpts, usdcAmount)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x7ab4339d.
+// Initialize is a paid mutator transaction binding the contract method 0xa1267fb1.
 //
-// Solidity: function initialize(string _vaultName, address _usdcAddress) returns()
-func (_VaultContract *VaultContractTransactor) Initialize(opts *bind.TransactOpts, _vaultName string, _usdcAddress common.Address) (*types.Transaction, error) {
-	return _VaultContract.contract.Transact(opts, "initialize", _vaultName, _usdcAddress)
+// Solidity: function initialize(string _vaultName, address _usdcAddress, address _priceUtilsAddress, address _ethPriceFeedAddress, uint256 _rebalancePercent) returns()
+func (_VaultContract *VaultContractTransactor) Initialize(opts *bind.TransactOpts, _vaultName string, _usdcAddress common.Address, _priceUtilsAddress common.Address, _ethPriceFeedAddress common.Address, _rebalancePercent *big.Int) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "initialize", _vaultName, _usdcAddress, _priceUtilsAddress, _ethPriceFeedAddress, _rebalancePercent)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x7ab4339d.
+// Initialize is a paid mutator transaction binding the contract method 0xa1267fb1.
 //
-// Solidity: function initialize(string _vaultName, address _usdcAddress) returns()
-func (_VaultContract *VaultContractSession) Initialize(_vaultName string, _usdcAddress common.Address) (*types.Transaction, error) {
-	return _VaultContract.Contract.Initialize(&_VaultContract.TransactOpts, _vaultName, _usdcAddress)
+// Solidity: function initialize(string _vaultName, address _usdcAddress, address _priceUtilsAddress, address _ethPriceFeedAddress, uint256 _rebalancePercent) returns()
+func (_VaultContract *VaultContractSession) Initialize(_vaultName string, _usdcAddress common.Address, _priceUtilsAddress common.Address, _ethPriceFeedAddress common.Address, _rebalancePercent *big.Int) (*types.Transaction, error) {
+	return _VaultContract.Contract.Initialize(&_VaultContract.TransactOpts, _vaultName, _usdcAddress, _priceUtilsAddress, _ethPriceFeedAddress, _rebalancePercent)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x7ab4339d.
+// Initialize is a paid mutator transaction binding the contract method 0xa1267fb1.
 //
-// Solidity: function initialize(string _vaultName, address _usdcAddress) returns()
-func (_VaultContract *VaultContractTransactorSession) Initialize(_vaultName string, _usdcAddress common.Address) (*types.Transaction, error) {
-	return _VaultContract.Contract.Initialize(&_VaultContract.TransactOpts, _vaultName, _usdcAddress)
+// Solidity: function initialize(string _vaultName, address _usdcAddress, address _priceUtilsAddress, address _ethPriceFeedAddress, uint256 _rebalancePercent) returns()
+func (_VaultContract *VaultContractTransactorSession) Initialize(_vaultName string, _usdcAddress common.Address, _priceUtilsAddress common.Address, _ethPriceFeedAddress common.Address, _rebalancePercent *big.Int) (*types.Transaction, error) {
+	return _VaultContract.Contract.Initialize(&_VaultContract.TransactOpts, _vaultName, _usdcAddress, _priceUtilsAddress, _ethPriceFeedAddress, _rebalancePercent)
 }
 
 // Rebalance is a paid mutator transaction binding the contract method 0xf009a1e0.
@@ -763,6 +860,27 @@ func (_VaultContract *VaultContractSession) SetPriceUtils(priceUtilsAddress comm
 // Solidity: function setPriceUtils(address priceUtilsAddress) returns()
 func (_VaultContract *VaultContractTransactorSession) SetPriceUtils(priceUtilsAddress common.Address) (*types.Transaction, error) {
 	return _VaultContract.Contract.SetPriceUtils(&_VaultContract.TransactOpts, priceUtilsAddress)
+}
+
+// SetRebalancePercent is a paid mutator transaction binding the contract method 0x3590843f.
+//
+// Solidity: function setRebalancePercent(uint256 _rebalancePercent) returns()
+func (_VaultContract *VaultContractTransactor) SetRebalancePercent(opts *bind.TransactOpts, _rebalancePercent *big.Int) (*types.Transaction, error) {
+	return _VaultContract.contract.Transact(opts, "setRebalancePercent", _rebalancePercent)
+}
+
+// SetRebalancePercent is a paid mutator transaction binding the contract method 0x3590843f.
+//
+// Solidity: function setRebalancePercent(uint256 _rebalancePercent) returns()
+func (_VaultContract *VaultContractSession) SetRebalancePercent(_rebalancePercent *big.Int) (*types.Transaction, error) {
+	return _VaultContract.Contract.SetRebalancePercent(&_VaultContract.TransactOpts, _rebalancePercent)
+}
+
+// SetRebalancePercent is a paid mutator transaction binding the contract method 0x3590843f.
+//
+// Solidity: function setRebalancePercent(uint256 _rebalancePercent) returns()
+func (_VaultContract *VaultContractTransactorSession) SetRebalancePercent(_rebalancePercent *big.Int) (*types.Transaction, error) {
+	return _VaultContract.Contract.SetRebalancePercent(&_VaultContract.TransactOpts, _rebalancePercent)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.

@@ -33,7 +33,8 @@ func CreateServer(config *cfg.Config) {
 	vaultRepository := repositories.NewVaultRepository(ethClient, redisClient)
 	vaultRetriever := use_cases.NewVaultRetriever(vaultRepository)
 	pnlRetriever := use_cases.NewPnlRetriever(vaultRepository)
-	vaultController := http_controllers.NewVaultController(vaultRetriever, pnlRetriever)
+	rebalanceHistoryRetriever := use_cases.NewRebalanceHistoryRetriever(vaultRepository)
+	vaultController := http_controllers.NewVaultController(vaultRetriever, pnlRetriever, rebalanceHistoryRetriever)
 	statusController := http_controllers.NewStatusController()
 
 	router := mux.NewRouter()
@@ -41,6 +42,7 @@ func CreateServer(config *cfg.Config) {
 	router.HandleFunc("/status", statusController.GetStatus)
 	router.HandleFunc("/vault/{address}", vaultController.GetVault)
 	router.HandleFunc("/vault/{address}/historicPnl", vaultController.GetHistoricVaultPnl)
+	router.HandleFunc("/vault/{address}/rebalanceHistory", vaultController.GetRebalanceHistory)
 
 	log.Printf("Listening on port %s\n", port)
 	handler := cors.Default().Handler(router)

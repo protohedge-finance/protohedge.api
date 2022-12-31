@@ -1,5 +1,26 @@
 [
     {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "positionManager",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "errorMessage",
+          "type": "string"
+        }
+      ],
+      "name": "PositionManagerCannotRebalance",
+      "type": "error"
+    },
+    {
       "anonymous": false,
       "inputs": [
         {
@@ -158,6 +179,21 @@
           "internalType": "address",
           "name": "_usdcAddress",
           "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_priceUtilsAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_ethPriceFeedAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_rebalancePercent",
+          "type": "uint256"
         }
       ],
       "name": "initialize",
@@ -212,6 +248,19 @@
     },
     {
       "inputs": [],
+      "name": "positionsWorth",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "proxiableUUID",
       "outputs": [
         {
@@ -246,6 +295,19 @@
       "name": "rebalance",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "rebalancePercent",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -305,6 +367,55 @@
       "name": "setPriceUtils",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_rebalancePercent",
+          "type": "uint256"
+        }
+      ],
+      "name": "setRebalancePercent",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IPositionManager",
+              "name": "positionManager",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "usdcAmountToHave",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct RebalanceQueueData[]",
+          "name": "rebalanceQueueData",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "shouldRebalance",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -437,6 +548,21 @@
             {
               "internalType": "uint256",
               "name": "availableLiquidity",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "positionsWorth",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "costBasis",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pnl",
               "type": "uint256"
             }
           ],

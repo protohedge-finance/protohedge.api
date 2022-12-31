@@ -12,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/go-redis/redis/v9"
+	redis_mappings "github.com/protohedge/protohedge.api/internal/adapters/redis/mappings"
 	"github.com/protohedge/protohedge.api/internal/adapters/smart_contracts/abi/vault_contract"
 	contract_mappings "github.com/protohedge/protohedge.api/internal/adapters/smart_contracts/mappings"
 	"github.com/protohedge/protohedge.api/internal/core/domain"
@@ -41,12 +42,26 @@ func (v *vaultRepository) GetVault(ctx context.Context, address common.Address) 
 	result, err := ctr.Stats(callOpts)
 
 	if err != nil {
+		fmt.Println("Error is: ")
 		fmt.Println(err)
 		return nil, err
 	}
 
 	vault := contract_mappings.ToVaultModel(result)
 	return &vault, nil
+}
+
+func (v *vaultRepository) GetRebalanceHistory(ctx context.Context, address common.Address) ([]domain.RebalanceNote, error) {
+	result, err := v.redisClient.ZRangeByLex(ctx, "rebalance_history", &redis.ZRangeBy{
+		Min: fmt.Sprintf("[%s:", address),
+		Max: fmt.Sprintf("(%s;", address),
+	}).Result()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return redis_mappings.ToRebalanceHistoryModel(result)
 }
 
 func (v *vaultRepository) GetHistoricVaultPnl(ctx context.Context, address common.Address) ([]domain.TimePoint, error) {

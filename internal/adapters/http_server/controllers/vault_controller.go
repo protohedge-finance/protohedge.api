@@ -12,14 +12,16 @@ import (
 )
 
 type vaultController struct {
-	vaultRetriever use_cases.VaultRetriever
-	pnlRetriever   use_cases.PnlRetriever
+	vaultRetriever            use_cases.VaultRetriever
+	pnlRetriever              use_cases.PnlRetriever
+	rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever
 }
 
-func NewVaultController(vaultRetriever use_cases.VaultRetriever, pnlRetriever use_cases.PnlRetriever) vaultController {
+func NewVaultController(vaultRetriever use_cases.VaultRetriever, pnlRetriever use_cases.PnlRetriever, rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever) vaultController {
 	return vaultController{
-		vaultRetriever: vaultRetriever,
-		pnlRetriever:   pnlRetriever,
+		vaultRetriever:            vaultRetriever,
+		pnlRetriever:              pnlRetriever,
+		rebalanceHistoryRetriever: rebalanceHistoryRetriever,
 	}
 }
 
@@ -50,4 +52,18 @@ func (s *vaultController) GetHistoricVaultPnl(w http.ResponseWriter, r *http.Req
 
 	historicPnlDto := http_server_mappings.ToHistoricPnlDto(historicPnl)
 	http_server_utils.SuccessResWithData(w, historicPnlDto)
+}
+
+func (s *vaultController) GetRebalanceHistory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	address := common.HexToAddress(vars["address"])
+	rebalanceHistory, err := s.rebalanceHistoryRetriever.RetrieveRebalanceHistory(r.Context(), address)
+
+	if err != nil {
+		http_server_utils.ErrorRes(w)
+		return
+	}
+
+	rebalanceHistoryDto := http_server_mappings.ToRebalanceHistoryDto(rebalanceHistory)
+	http_server_utils.SuccessResWithData(w, rebalanceHistoryDto)
 }
