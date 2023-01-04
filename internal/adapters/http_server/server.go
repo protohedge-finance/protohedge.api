@@ -29,7 +29,7 @@ func CreateServer(config *cfg.Config) {
 	}
 
 	// AWS
-	awsConfig := adapters.NewClient()
+	awsConfig := adapters.NewClient(config)
 
 	vaultRepository := repositories.NewVaultRepository(ethClient, redisClient, config, awsConfig)
 	vaultRetriever := use_cases.NewVaultRetriever(vaultRepository)

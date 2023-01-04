@@ -14,6 +14,7 @@ type Config struct {
 	RedisConnectionString string `yaml:"redisConnectionString",envconfig:"REDIS_CONNECTION_STRING"`
 	RebalanceInterval     string `yaml:"rebalanceInterval",envconfig:"REBALANCE_INTERVAL"`
 	EventbridgeRuleName   string `yaml:"eventbridgeRuleName",envconfig:"EVENTBRIDGE_RULE_NAME"`
+	AwsRegion             string `yaml:"awsRegion",envconfig:"AWS_REGION"`
 }
 
 func GetConfigFileFromEnv(env Env) string {

@@ -3,17 +3,18 @@ package adapters
 import (
 	"context"
 
-	"github.com/aws/aws-sdk-go-v2/config"
+	awsConfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/scheduler"
+	"github.com/protohedge/protohedge.api/internal/config"
 )
 
 type AwsClient struct {
 	SchedulerClient *scheduler.Client
-	Config          config.Config
+	Config          awsConfig.Config
 }
 
-func NewClient() *AwsClient {
-	cfg, err := config.LoadDefaultConfig(context.TODO())
+func NewClient(config *config.Config) *AwsClient {
+	cfg, err := awsConfig.LoadDefaultConfig(context.TODO(), awsConfig.WithRegion(config.AwsRegion))
 
 	if err != nil {
 		panic(err)

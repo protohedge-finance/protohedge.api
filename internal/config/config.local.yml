@@ -3,6 +3,7 @@ rpcUrl: http://localhost:8545
 redisConnectionString: localhost:6379
 rebalanceInterval: 28800
 eventbridgeRuleName: protohedge-rebalance-rule
+awsRegion: ap-southeast-2
 
 
 
