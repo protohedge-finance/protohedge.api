@@ -118,6 +118,11 @@
           "internalType": "bool",
           "name": "",
           "type": "bool"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
         }
       ],
       "stateMutability": "view",
@@ -451,5 +456,4 @@
       "stateMutability": "view",
       "type": "function"
     }
-]
-  
+  ]

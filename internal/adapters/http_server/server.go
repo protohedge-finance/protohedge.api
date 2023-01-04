@@ -1,13 +1,13 @@
 package http_server
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/go-redis/redis/v9"
 	"github.com/gorilla/mux"
+	"github.com/protohedge/protohedge.api/internal/adapters"
 	http_controllers "github.com/protohedge/protohedge.api/internal/adapters/http_server/controllers"
 	"github.com/protohedge/protohedge.api/internal/adapters/repositories"
 	cfg "github.com/protohedge/protohedge.api/internal/config"
@@ -18,8 +18,6 @@ import (
 var port = ":8080"
 
 func CreateServer(config *cfg.Config) {
-	fmt.Println("rpc url is: ")
-	fmt.Println(config.RpcUrl)
 	ethClient, err := ethclient.Dial(config.RpcUrl)
 
 	redisClient := redis.NewClient(&redis.Options{
@@ -30,11 +28,15 @@ func CreateServer(config *cfg.Config) {
 		panic(err)
 	}
 
-	vaultRepository := repositories.NewVaultRepository(ethClient, redisClient)
+	// AWS
+	awsConfig := adapters.NewClient()
+
+	vaultRepository := repositories.NewVaultRepository(ethClient, redisClient, config, awsConfig)
 	vaultRetriever := use_cases.NewVaultRetriever(vaultRepository)
 	pnlRetriever := use_cases.NewPnlRetriever(vaultRepository)
 	rebalanceHistoryRetriever := use_cases.NewRebalanceHistoryRetriever(vaultRepository)
-	vaultController := http_controllers.NewVaultController(vaultRetriever, pnlRetriever, rebalanceHistoryRetriever)
+	rebalanceInfoRetriever := use_cases.NewRebalanceInfoRetriever(vaultRepository)
+	vaultController := http_controllers.NewVaultController(vaultRetriever, pnlRetriever, rebalanceHistoryRetriever, rebalanceInfoRetriever)
 	statusController := http_controllers.NewStatusController()
 
 	router := mux.NewRouter()
@@ -43,6 +45,7 @@ func CreateServer(config *cfg.Config) {
 	router.HandleFunc("/vault/{address}", vaultController.GetVault)
 	router.HandleFunc("/vault/{address}/historicPnl", vaultController.GetHistoricVaultPnl)
 	router.HandleFunc("/vault/{address}/rebalanceHistory", vaultController.GetRebalanceHistory)
+	router.HandleFunc("/vault/{address}/rebalanceInfo", vaultController.GetRebalanceInfo)
 
 	log.Printf("Listening on port %s\n", port)
 	handler := cors.Default().Handler(router)

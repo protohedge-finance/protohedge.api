@@ -1,3 +1,5 @@
 env: production
 rpcUrl: https://arb1.arbitrum.io/rpc
 redisConnectionString: localhost:6379
+rebalanceInterval: 28800
+eventbridgeRuleName: protohedge-rebalance-rule

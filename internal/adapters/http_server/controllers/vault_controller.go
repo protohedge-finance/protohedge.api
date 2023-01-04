@@ -15,13 +15,15 @@ type vaultController struct {
 	vaultRetriever            use_cases.VaultRetriever
 	pnlRetriever              use_cases.PnlRetriever
 	rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever
+	rebalanceInfoRetriever    use_cases.RebalanceInfoRetriever
 }
 
-func NewVaultController(vaultRetriever use_cases.VaultRetriever, pnlRetriever use_cases.PnlRetriever, rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever) vaultController {
+func NewVaultController(vaultRetriever use_cases.VaultRetriever, pnlRetriever use_cases.PnlRetriever, rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever, rebalanceInfoRetriever use_cases.RebalanceInfoRetriever) vaultController {
 	return vaultController{
 		vaultRetriever:            vaultRetriever,
 		pnlRetriever:              pnlRetriever,
 		rebalanceHistoryRetriever: rebalanceHistoryRetriever,
+		rebalanceInfoRetriever:    rebalanceInfoRetriever,
 	}
 }
 
@@ -66,4 +68,18 @@ func (s *vaultController) GetRebalanceHistory(w http.ResponseWriter, r *http.Req
 
 	rebalanceHistoryDto := http_server_mappings.ToRebalanceHistoryDto(rebalanceHistory)
 	http_server_utils.SuccessResWithData(w, rebalanceHistoryDto)
+}
+
+func (s *vaultController) GetRebalanceInfo(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	address := common.HexToAddress(vars["address"])
+	rebalanceInfo, err := s.rebalanceInfoRetriever.RetrieveRebalanceInfo(r.Context(), address)
+
+	if err != nil {
+		http_server_utils.ErrorRes(w)
+		return
+	}
+
+	rebalanceInfoDto := http_server_mappings.ToRebalanceInfoDto(rebalanceInfo)
+	http_server_utils.SuccessResWithData(w, rebalanceInfoDto)
 }

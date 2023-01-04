@@ -53,3 +53,10 @@ func ToRebalanceHistoryDto(rebalanceHistory []domain.RebalanceNote) *http_server
 		RebalanceHistory: rebalanceNotes,
 	}
 }
+
+func ToRebalanceInfoDto(rebalanceInfo *domain.RebalanceInfo) *http_server_dtos.RebalanceInfoResponseDto {
+	return &http_server_dtos.RebalanceInfoResponseDto{
+		RebalanceIntervalSeconds: int(rebalanceInfo.RebalanceInterval.Seconds()),
+		DurationRemainingSeconds: int(rebalanceInfo.DurationRemaining.Seconds()),
+	}
+}
