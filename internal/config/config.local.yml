@@ -1,6 +1,9 @@
 env: local
 rpcUrl: http://localhost:8545
-redisConnectionString: localhost:6379
+redis:
+  host: localhost:6379
+  username: 
+  password:
 rebalanceInterval: 28800
 eventbridgeRuleName: protohedge-rebalance-rule
 awsRegion: ap-southeast-2

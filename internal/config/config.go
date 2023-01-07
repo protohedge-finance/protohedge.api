@@ -9,12 +9,16 @@ import (
 )
 
 type Config struct {
-	Env                   string `yaml:"env"`
-	RpcUrl                string `yaml:"rpcUrl",envconfig:"RPC_URL"`
-	RedisConnectionString string `yaml:"redisConnectionString",envconfig:"REDIS_CONNECTION_STRING"`
-	RebalanceInterval     string `yaml:"rebalanceInterval",envconfig:"REBALANCE_INTERVAL"`
-	EventbridgeRuleName   string `yaml:"eventbridgeRuleName",envconfig:"EVENTBRIDGE_RULE_NAME"`
-	AwsRegion             string `yaml:"awsRegion",envconfig:"AWS_REGION"`
+	Env    string `yaml:"env"`
+	RpcUrl string `yaml:"rpcUrl",envconfig:"RPC_URL"`
+	Redis  struct {
+		Host     string `yaml:"host",envconfig:"REDIS_HOST"`
+		Username string `yaml:"username",envconfig:"REDIS_USERNAME"`
+		Password string `yaml:"password",envconfig:"REDIS_PASSWORD"`
+	} `yaml:"redis"`
+	RebalanceInterval   string `yaml:"rebalanceInterval",envconfig:"REBALANCE_INTERVAL"`
+	EventbridgeRuleName string `yaml:"eventbridgeRuleName",envconfig:"EVENTBRIDGE_RULE_NAME"`
+	AwsRegion           string `yaml:"awsRegion",envconfig:"AWS_REGION"`
 }
 
 func GetConfigFileFromEnv(env Env) string {

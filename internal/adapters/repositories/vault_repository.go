@@ -67,6 +67,7 @@ func (v *vaultRepository) GetRebalanceHistory(ctx context.Context, address commo
 	}).Result()
 
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 

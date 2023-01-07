@@ -2,5 +2,8 @@ env: production
 rpcUrl: https://arb1.arbitrum.io/rpc
 redisConnectionString: localhost:6379
 rebalanceInterval: 28800
+redis:
+  host: apn1-ruling-tadpole-33464.upstash.io:33464
+  username: default
 eventbridgeRuleName: protohedge-rebalance-rule
 awsRegion: ap-southeast-2

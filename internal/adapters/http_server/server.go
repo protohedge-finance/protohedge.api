@@ -1,6 +1,7 @@
 package http_server
 
 import (
+	"crypto/tls"
 	"log"
 	"net/http"
 
@@ -21,7 +22,12 @@ func CreateServer(config *cfg.Config) {
 	ethClient, err := ethclient.Dial(config.RpcUrl)
 
 	redisClient := redis.NewClient(&redis.Options{
-		Addr: config.RedisConnectionString,
+		Addr:     config.Redis.Host,
+		Username: config.Redis.Username,
+		Password: config.Redis.Password,
+		TLSConfig: &tls.Config{
+			MinVersion: tls.VersionTLS12,
+		},
 	})
 
 	if err != nil {
