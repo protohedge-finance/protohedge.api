@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/go-kit/kit/endpoint"
 	"github.com/go-redis/redis/v9"
 	"github.com/gorilla/mux"
 	"github.com/protohedge/protohedge.api/internal/adapters"
@@ -19,6 +20,9 @@ import (
 var port = ":8080"
 
 func CreateServer(config *cfg.Config) {
+	endpoint.Endpoint
+	logger := adapters.NewLogger(config)
+
 	ethClient, err := ethclient.Dial(config.RpcUrl)
 
 	redisClient := redis.NewClient(&redis.Options{
