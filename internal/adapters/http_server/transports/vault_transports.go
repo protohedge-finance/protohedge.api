@@ -1,4 +1,4 @@
-package vault_endpoints
+package http_transports
 
 import (
 	"context"
@@ -6,7 +6,6 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/go-kit/kit/transport"
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 	vault_endpoints "github.com/protohedge/protohedge.api/internal/core/endpoints/vault"
@@ -14,8 +13,8 @@ import (
 	"go.uber.org/zap"
 )
 
-func NewHTTPHandler(
-	logger zap.Logger,
+func NewVaultHTTPHandler(
+	logger *zap.Logger,
 	vaultRetriever use_cases.VaultRetriever,
 	pnlRetriever use_cases.PnlRetriever,
 	rebalanceInfoRetriever use_cases.RebalanceInfoRetriever,
@@ -23,10 +22,9 @@ func NewHTTPHandler(
 
 	options := []httptransport.ServerOption{
 		httptransport.ServerErrorEncoder(errorEncoder),
-		httptransport.ServerErrorHandler(transport.NewLogErrorHandler(logger)),
 	}
 
-	m := http.NewServeMux()
+	m := mux.NewRouter()
 
 	getVaultEndpoint := vault_endpoints.CreateGetVaultEndpoint(vaultRetriever)
 	getHistoricVaultPnlEndpoint := vault_endpoints.CreateGetHistoricVaultPnl(pnlRetriever)

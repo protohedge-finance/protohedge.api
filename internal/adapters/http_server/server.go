@@ -6,11 +6,9 @@ import (
 	"net/http"
 
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/go-kit/kit/endpoint"
 	"github.com/go-redis/redis/v9"
-	"github.com/gorilla/mux"
 	"github.com/protohedge/protohedge.api/internal/adapters"
-	http_controllers "github.com/protohedge/protohedge.api/internal/adapters/http_server/controllers"
+	http_transports "github.com/protohedge/protohedge.api/internal/adapters/http_server/transports"
 	"github.com/protohedge/protohedge.api/internal/adapters/repositories"
 	cfg "github.com/protohedge/protohedge.api/internal/config"
 	"github.com/protohedge/protohedge.api/internal/core/use_cases"
@@ -20,7 +18,6 @@ import (
 var port = ":8080"
 
 func CreateServer(config *cfg.Config) {
-	endpoint.Endpoint
 	logger := adapters.NewLogger(config)
 
 	ethClient, err := ethclient.Dial(config.RpcUrl)
@@ -46,18 +43,13 @@ func CreateServer(config *cfg.Config) {
 	pnlRetriever := use_cases.NewPnlRetriever(vaultRepository)
 	rebalanceHistoryRetriever := use_cases.NewRebalanceHistoryRetriever(vaultRepository)
 	rebalanceInfoRetriever := use_cases.NewRebalanceInfoRetriever(vaultRepository)
-	vaultController := http_controllers.NewVaultController(vaultRetriever, pnlRetriever, rebalanceHistoryRetriever, rebalanceInfoRetriever)
-	statusController := http_controllers.NewStatusController()
 
-	router := mux.NewRouter()
+	vaultHandler := http_transports.NewVaultHTTPHandler(logger, vaultRetriever, pnlRetriever, rebalanceInfoRetriever, rebalanceHistoryRetriever)
 
-	router.HandleFunc("/status", statusController.GetStatus)
-	router.HandleFunc("/vault/{address}", vaultController.GetVault)
-	router.HandleFunc("/vault/{address}/historicPnl", vaultController.GetHistoricVaultPnl)
-	router.HandleFunc("/vault/{address}/rebalanceHistory", vaultController.GetRebalanceHistory)
-	router.HandleFunc("/vault/{address}/rebalanceInfo", vaultController.GetRebalanceInfo)
+	mux := http.NewServeMux()
+	mux.Handle("/vault/", vaultHandler)
 
 	log.Printf("Listening on port %s\n", port)
-	handler := cors.Default().Handler(router)
+	handler := cors.Default().Handler(mux)
 	log.Fatal(http.ListenAndServe(port, handler))
 }
