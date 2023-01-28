@@ -9,7 +9,7 @@ import (
 )
 
 type VaultRetriever interface {
-	RetrieveVault(ctx context.Context, address common.Address) (*domain.Vault, error)
+	RetrieveVault(ctx context.Context, address common.Address) (domain.Vault, error)
 }
 
 type vaultRetriever struct {
@@ -22,6 +22,6 @@ func NewVaultRetriever(vaultRepository ports.VaultRepository) VaultRetriever {
 	}
 }
 
-func (s *vaultRetriever) RetrieveVault(ctx context.Context, address common.Address) (*domain.Vault, error) {
+func (s *vaultRetriever) RetrieveVault(ctx context.Context, address common.Address) (domain.Vault, error) {
 	return s.vaultRepository.GetVault(ctx, address)
 }

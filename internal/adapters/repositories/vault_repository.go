@@ -40,24 +40,22 @@ func NewVaultRepository(ethClient *ethclient.Client, redisClient *redis.Client, 
 	}
 }
 
-func (v *vaultRepository) GetVault(ctx context.Context, address common.Address) (*domain.Vault, error) {
+func (v *vaultRepository) GetVault(ctx context.Context, address common.Address) (domain.Vault, error) {
 	ctr, err := vault_contract.NewVaultContract(address, v.ethClient)
 
 	if err != nil {
-		return nil, err
+		return domain.Vault{}, err
 	}
 
 	callOpts := &bind.CallOpts{Context: context.Background(), Pending: false}
 	result, err := ctr.Stats(callOpts)
 
 	if err != nil {
-		fmt.Println("Error is: ")
-		fmt.Println(err)
-		return nil, err
+		return domain.Vault{}, err
 	}
 
 	vault := contract_mappings.ToVaultModel(result)
-	return &vault, nil
+	return vault, nil
 }
 
 func (v *vaultRepository) GetRebalanceHistory(ctx context.Context, address common.Address) ([]domain.RebalanceNote, error) {

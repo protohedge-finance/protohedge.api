@@ -1,8 +1,8 @@
 package config
 
 import (
-	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v2"
@@ -42,7 +42,13 @@ func GetEnvFromEnvVar() Env {
 func NewConfig() *Config {
 	env := GetEnvFromEnvVar()
 	configFile := GetConfigFileFromEnv(env)
-	f, err := os.Open(fmt.Sprintf("../../internal/config/%s", configFile))
+	dir, err := os.Getwd()
+
+	if err != nil {
+		panic(err)
+	}
+
+	f, err := os.Open(filepath.Join(dir, "internal", "config", configFile))
 
 	if err != nil {
 		panic(err)

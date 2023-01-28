@@ -1,8 +1,7 @@
 env: local
 rpcUrl: http://localhost:8545
 redis:
-  host: apn1-ruling-tadpole-33464.upstash.io:33464
-  username: default
+  host: localhost:6379 
 rebalanceInterval: 28800
 eventbridgeRuleName: protohedge-rebalance-rule
 awsRegion: ap-southeast-2

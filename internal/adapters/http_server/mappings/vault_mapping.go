@@ -5,14 +5,14 @@ import (
 	"github.com/protohedge/protohedge.api/internal/core/domain"
 )
 
-func ToVaultResponseDto(vault *domain.Vault) *http_server_dtos.VaultResponseDto {
+func ToVaultResponseDto(vault domain.Vault) http_server_dtos.VaultResponseDto {
 	positionManagersDtos := []http_server_dtos.PositionManagerResponseDto{}
 
 	for _, p := range vault.PositionManagers {
 		positionManagersDtos = append(positionManagersDtos, ToPositionManagerResponseDto(p))
 	}
 
-	return &http_server_dtos.VaultResponseDto{
+	return http_server_dtos.VaultResponseDto{
 		VaultAddress:       vault.VaultAddress.String(),
 		PositionManagers:   positionManagersDtos,
 		VaultWorth:         vault.VaultWorth.String(),
@@ -54,7 +54,7 @@ func ToRebalanceHistoryDto(rebalanceHistory []domain.RebalanceNote) *http_server
 	}
 }
 
-func ToRebalanceInfoDto(rebalanceInfo *domain.RebalanceInfo) *http_server_dtos.RebalanceInfoResponseDto {
+func ToRebalanceInfoDto(rebalanceInfo domain.RebalanceInfo) *http_server_dtos.RebalanceInfoResponseDto {
 	return &http_server_dtos.RebalanceInfoResponseDto{
 		RebalanceIntervalSeconds: int(rebalanceInfo.RebalanceInterval.Seconds()),
 		DurationRemainingSeconds: int(rebalanceInfo.DurationRemaining.Seconds()),
