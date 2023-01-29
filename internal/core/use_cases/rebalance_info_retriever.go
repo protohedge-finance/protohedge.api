@@ -9,7 +9,7 @@ import (
 )
 
 type RebalanceInfoRetriever interface {
-	RetrieveRebalanceInfo(ctx context.Context, address common.Address) (*domain.RebalanceInfo, error)
+	RetrieveRebalanceInfo(ctx context.Context, address common.Address) (domain.RebalanceInfo, error)
 }
 
 type rebalanceInfoRetriever struct {
@@ -22,6 +22,6 @@ func NewRebalanceInfoRetriever(vaultRepository ports.VaultRepository) RebalanceI
 	}
 }
 
-func (s *rebalanceInfoRetriever) RetrieveRebalanceInfo(ctx context.Context, address common.Address) (*domain.RebalanceInfo, error) {
+func (s *rebalanceInfoRetriever) RetrieveRebalanceInfo(ctx context.Context, address common.Address) (domain.RebalanceInfo, error) {
 	return s.vaultRepository.GetRebalanceInfo(ctx, address)
 }

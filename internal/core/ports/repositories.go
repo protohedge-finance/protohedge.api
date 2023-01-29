@@ -11,5 +11,5 @@ type VaultRepository interface {
 	GetVault(context.Context, common.Address) (domain.Vault, error)
 	GetHistoricVaultPnl(context.Context, common.Address) ([]domain.TimePoint, error)
 	GetRebalanceHistory(context.Context, common.Address) ([]domain.RebalanceNote, error)
-	GetRebalanceInfo(context.Context, common.Address) (*domain.RebalanceInfo, error)
+	GetRebalanceInfo(context.Context, common.Address) (domain.RebalanceInfo, error)
 }

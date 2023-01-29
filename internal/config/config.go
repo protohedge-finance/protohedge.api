@@ -48,7 +48,7 @@ func NewConfig() *Config {
 		panic(err)
 	}
 
-	f, err := os.Open(filepath.Join(dir, "internal", "config", configFile))
+	f, err := os.Open(filepath.Join(dir, "..", "..", "internal", "config", configFile))
 
 	if err != nil {
 		panic(err)

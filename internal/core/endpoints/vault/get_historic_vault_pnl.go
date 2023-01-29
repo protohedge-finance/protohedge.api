@@ -29,7 +29,7 @@ func NewGetHistoricVaultPnl(pnlRetriever use_cases.PnlRetriever) endpoint.Endpoi
 
 func CreateGetHistoricVaultPnl(pnlRetriever use_cases.PnlRetriever) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(GetRebalanceHistoryRequest)
+		req := request.(GetHistoricVaultPnlRequest)
 		historicPnl, err := pnlRetriever.RetrieveHistoricPnl(ctx, common.HexToAddress(req.Address))
 
 		return GetHistoricVaultPnlResponse{

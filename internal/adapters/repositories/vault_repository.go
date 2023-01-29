@@ -113,15 +113,15 @@ func (v *vaultRepository) GetHistoricVaultPnl(ctx context.Context, address commo
 	return historicPnl, nil
 }
 
-func (v *vaultRepository) GetRebalanceInfo(ctx context.Context, address common.Address) (*domain.RebalanceInfo, error) {
+func (v *vaultRepository) GetRebalanceInfo(ctx context.Context, address common.Address) (domain.RebalanceInfo, error) {
 	durationRemaining, rebalanceInterval, err := v.getRebalanceDurations(ctx)
 
 	if err != nil {
 		fmt.Println(err)
-		return nil, err
+		return domain.RebalanceInfo{}, err
 	}
 
-	return &domain.RebalanceInfo{
+	return domain.RebalanceInfo{
 		RebalanceInterval: rebalanceInterval,
 		DurationRemaining: durationRemaining,
 	}, nil

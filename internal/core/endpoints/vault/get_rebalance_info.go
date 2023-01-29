@@ -33,7 +33,7 @@ func CreateGetRebalanceInfo(rebalanceInfoRetriever use_cases.RebalanceInfoRetrie
 		req := request.(GetRebalanceInfoRequest)
 		rebalanceInfo, err := rebalanceInfoRetriever.RetrieveRebalanceInfo(ctx, common.HexToAddress(req.Address))
 		return GetRebalanceInfoResponse{
-			RebalanceInfo: *rebalanceInfo,
+			RebalanceInfo: rebalanceInfo,
 			Err:           err,
 		}, err
 	}

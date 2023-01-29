@@ -9,7 +9,6 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 	http_server_mappings "github.com/protohedge/protohedge.api/internal/adapters/http_server/mappings"
-	"github.com/protohedge/protohedge.api/internal/core/domain"
 	vault_endpoints "github.com/protohedge/protohedge.api/internal/core/endpoints/vault"
 	"github.com/protohedge/protohedge.api/internal/core/use_cases"
 	"go.uber.org/zap"
@@ -100,7 +99,7 @@ func mapGetRebalanceHistory(response interface{}) interface{} {
 }
 
 func mapGetRebalanceInfo(response interface{}) interface{} {
-	return http_server_mappings.ToRebalanceInfoDto(response.(domain.RebalanceInfo))
+	return http_server_mappings.ToRebalanceInfoDto(response.(vault_endpoints.GetRebalanceInfoResponse).RebalanceInfo)
 }
 
 func encodeMappedResponse(mapResponse func(interface{}) interface{}) EncodeResponse {
