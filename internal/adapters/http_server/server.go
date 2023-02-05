@@ -50,9 +50,11 @@ func CreateServer(config *cfg.Config) {
 	rebalanceInfoRetriever := use_cases.NewRebalanceInfoRetriever(vaultRepository)
 
 	vaultHandler := http_transports.NewVaultHTTPHandler(logger, vaultRetriever, pnlRetriever, rebalanceInfoRetriever, rebalanceHistoryRetriever)
+	healthHandler := http_transports.NewHealthHTTPHandler()
 
 	mux := http.NewServeMux()
 	mux.Handle("/vault/", vaultHandler)
+	mux.Handle("/", healthHandler)
 
 	log.Printf("Listening on port %s\n", port)
 	handler := cors.Default().Handler(mux)
