@@ -15,7 +15,6 @@ type GetPnlRequest struct {
 
 type GetPnlResponse struct {
 	HistoricPnl []domain.TimePoint
-	Err         error
 }
 
 func NewGetHistoricPnl(pnlRetriever use_cases.PnlRetriever) endpoint.Endpoint {
@@ -35,7 +34,6 @@ func CreateGetHistoricPnl(pnlRetriever use_cases.PnlRetriever) endpoint.Endpoint
 
 		return GetPnlResponse{
 			HistoricPnl: historicPnl,
-			Err:         err,
-		}, nil
+		}, err
 	}
 }

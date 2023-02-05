@@ -15,7 +15,6 @@ type GetRebalanceInfoRequest struct {
 
 type GetRebalanceInfoResponse struct {
 	RebalanceInfo domain.RebalanceInfo
-	Err           error
 }
 
 func NewGetRebalanceInfoEndpoint(rebalanceInfoRetriever use_cases.RebalanceInfoRetriever) endpoint.Endpoint {
@@ -34,7 +33,6 @@ func CreateGetRebalanceInfo(rebalanceInfoRetriever use_cases.RebalanceInfoRetrie
 		rebalanceInfo, err := rebalanceInfoRetriever.RetrieveRebalanceInfo(ctx, common.HexToAddress(req.Address))
 		return GetRebalanceInfoResponse{
 			RebalanceInfo: rebalanceInfo,
-			Err:           err,
 		}, err
 	}
 }

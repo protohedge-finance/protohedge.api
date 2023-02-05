@@ -15,7 +15,6 @@ type GetRebalanceHistoryRequest struct {
 
 type GetRebalanceHistoryResponse struct {
 	RebalanceHistory []domain.RebalanceNote
-	Err              error
 }
 
 func NewGetRebalanceHistory(rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever) endpoint.Endpoint {
@@ -35,7 +34,6 @@ func CreateGetRebalanceHistory(rebalanceHistoryRetriever use_cases.RebalanceHist
 
 		return GetRebalanceHistoryResponse{
 			RebalanceHistory: rebalanceHistory,
-			Err:              err,
-		}, nil
+		}, err
 	}
 }

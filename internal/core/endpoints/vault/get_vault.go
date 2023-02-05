@@ -15,7 +15,6 @@ type GetVaultRequest struct {
 
 type GetVaultResponse struct {
 	Vault domain.Vault
-	Err   error
 }
 
 func NewGetVaultEndpoint(vaultRetriever use_cases.VaultRetriever) endpoint.Endpoint {
@@ -35,7 +34,6 @@ func CreateGetVaultEndpoint(vaultRetriever use_cases.VaultRetriever) endpoint.En
 
 		return GetVaultResponse{
 			Vault: vault,
-			Err:   err,
-		}, nil
+		}, err
 	}
 }

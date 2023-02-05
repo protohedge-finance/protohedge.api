@@ -15,7 +15,6 @@ type GetHistoricVaultPnlRequest struct {
 
 type GetHistoricVaultPnlResponse struct {
 	HistoricVaultPnl []domain.TimePoint
-	Err              error
 }
 
 func NewGetHistoricVaultPnl(pnlRetriever use_cases.PnlRetriever) endpoint.Endpoint {
@@ -31,10 +30,8 @@ func CreateGetHistoricVaultPnl(pnlRetriever use_cases.PnlRetriever) endpoint.End
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(GetHistoricVaultPnlRequest)
 		historicPnl, err := pnlRetriever.RetrieveHistoricPnl(ctx, common.HexToAddress(req.Address))
-
 		return GetHistoricVaultPnlResponse{
 			HistoricVaultPnl: historicPnl,
-			Err:              err,
-		}, nil
+		}, err
 	}
 }

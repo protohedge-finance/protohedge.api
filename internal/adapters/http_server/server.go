@@ -22,14 +22,19 @@ func CreateServer(config *cfg.Config) {
 
 	ethClient, err := ethclient.Dial(config.RpcUrl)
 
-	redisClient := redis.NewClient(&redis.Options{
+	redisOptions := &redis.Options{
 		Addr:     config.Redis.Host,
 		Username: config.Redis.Username,
 		Password: config.Redis.Password,
-		TLSConfig: &tls.Config{
+	}
+
+	if config.Redis.UseSsl {
+		redisOptions.TLSConfig = &tls.Config{
 			MinVersion: tls.VersionTLS12,
-		},
-	})
+		}
+	}
+
+	redisClient := redis.NewClient(redisOptions)
 
 	if err != nil {
 		panic(err)

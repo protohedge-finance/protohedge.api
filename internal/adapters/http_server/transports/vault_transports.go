@@ -4,15 +4,19 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 	http_server_mappings "github.com/protohedge/protohedge.api/internal/adapters/http_server/mappings"
+	"github.com/protohedge/protohedge.api/internal/core/domain"
 	vault_endpoints "github.com/protohedge/protohedge.api/internal/core/endpoints/vault"
 	"github.com/protohedge/protohedge.api/internal/core/use_cases"
 	"go.uber.org/zap"
 )
+
+var addressNotFound = fmt.Errorf("%w: Empty address", domain.ErrBadRequest)
 
 func NewVaultHTTPHandler(
 	logger *zap.Logger,
@@ -45,7 +49,7 @@ func decodeGetVaultRequest(ctx context.Context, r *http.Request) (interface{}, e
 
 	address, ok := vars["address"]
 	if !ok {
-		return nil, errors.New("Address not found")
+		return nil, addressNotFound
 	}
 
 	return vault_endpoints.GetVaultRequest{Address: address}, nil
@@ -56,7 +60,7 @@ func decodeGetHistoricPnlRequest(ctx context.Context, r *http.Request) (interfac
 
 	address, ok := vars["address"]
 	if !ok {
-		return nil, errors.New("Address not found")
+		return nil, addressNotFound
 	}
 
 	return vault_endpoints.GetHistoricVaultPnlRequest{Address: address}, nil
@@ -67,7 +71,7 @@ func decodeGetRebalanceHistoryRequest(ctx context.Context, r *http.Request) (int
 
 	address, ok := vars["address"]
 	if !ok {
-		return nil, errors.New("Address not found")
+		return nil, addressNotFound
 	}
 
 	return vault_endpoints.GetRebalanceHistoryRequest{Address: address}, nil
@@ -78,7 +82,7 @@ func decodeGetRebalanceInfoRequest(ctx context.Context, r *http.Request) (interf
 
 	address, ok := vars["address"]
 	if !ok {
-		return nil, errors.New("Address not found")
+		return nil, addressNotFound
 	}
 
 	return vault_endpoints.GetRebalanceInfoRequest{Address: address}, nil
@@ -104,26 +108,32 @@ func mapGetRebalanceInfo(response interface{}) interface{} {
 
 func encodeMappedResponse(mapResponse func(interface{}) interface{}) EncodeResponse {
 	return func(ctx context.Context, w http.ResponseWriter, response interface{}) error {
-		if e, ok := response.(errorer); ok && e.error() != nil {
-			errorEncoder(ctx, e.error(), w)
-			return nil
-		}
-
 		mappedResponse := mapResponse(response)
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		return json.NewEncoder(w).Encode(mappedResponse)
 	}
 }
 
-type errorer interface {
-	error() error
-}
-
 func errorEncoder(_ context.Context, err error, w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.WriteHeader(http.StatusInternalServerError)
+	var message string
+	var errorCode string
+	if errors.Is(err, domain.ErrNotFound) {
+		w.WriteHeader(http.StatusNotFound)
+		message = err.Error()
+		errorCode = "notFound"
+	} else if errors.Is(err, domain.ErrBadRequest) {
+		w.WriteHeader(http.StatusBadRequest)
+		message = err.Error()
+		errorCode = "badRequest"
+	} else {
+		w.WriteHeader(http.StatusInternalServerError)
+		errorCode = "unknownError"
+		message = domain.ErrUnknownError.Error()
+	}
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"error": err.Error(),
+		"error":     message,
+		"errorCode": errorCode,
 	})
 }

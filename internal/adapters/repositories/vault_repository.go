@@ -17,6 +17,7 @@ import (
 	"github.com/go-redis/redis/v9"
 	"github.com/protohedge/protohedge.api/internal/adapters"
 	redis_mappings "github.com/protohedge/protohedge.api/internal/adapters/redis/mappings"
+	"github.com/protohedge/protohedge.api/internal/adapters/smart_contracts"
 	"github.com/protohedge/protohedge.api/internal/adapters/smart_contracts/abi/vault_contract"
 	contract_mappings "github.com/protohedge/protohedge.api/internal/adapters/smart_contracts/mappings"
 	"github.com/protohedge/protohedge.api/internal/config"
@@ -51,7 +52,7 @@ func (v *vaultRepository) GetVault(ctx context.Context, address common.Address) 
 	result, err := ctr.Stats(callOpts)
 
 	if err != nil {
-		return domain.Vault{}, err
+		return domain.Vault{}, smart_contracts.MapError(err)
 	}
 
 	vault := contract_mappings.ToVaultModel(result)
@@ -65,7 +66,6 @@ func (v *vaultRepository) GetRebalanceHistory(ctx context.Context, address commo
 	}).Result()
 
 	if err != nil {
-		fmt.Println(err)
 		return nil, err
 	}
 

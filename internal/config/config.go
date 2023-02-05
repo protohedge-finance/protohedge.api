@@ -15,6 +15,7 @@ type Config struct {
 		Host     string `yaml:"host",envconfig:"REDIS_HOST"`
 		Username string `yaml:"username",envconfig:"REDIS_USERNAME"`
 		Password string `yaml:"password",envconfig:"REDIS_PASSWORD"`
+		UseSsl   bool   `yaml:"useSsl",envconfig:"REDIS_USE_SSL"`
 	} `yaml:"redis"`
 	RebalanceInterval   string `yaml:"rebalanceInterval",envconfig:"REBALANCE_INTERVAL"`
 	EventbridgeRuleName string `yaml:"eventbridgeRuleName",envconfig:"EVENTBRIDGE_RULE_NAME"`
