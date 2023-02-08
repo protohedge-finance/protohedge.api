@@ -18,7 +18,7 @@ type Config struct {
 		UseSsl   bool   `yaml:"useSsl",envconfig:"REDIS_USE_SSL"`
 	} `yaml:"redis"`
 	RebalanceInterval   string `yaml:"rebalanceInterval",envconfig:"REBALANCE_INTERVAL"`
-	EventbridgeRuleName string `yaml:"eventbridgeRuleName",envconfig:"EVENTBRIDGE_RULE_NAME"`
+	CloudwatchEventRule string `yaml:"cloudwatchEventRule",envconfig:"CLOUDWATCH_EVENT_RULE"`
 	AwsRegion           string `yaml:"awsRegion",envconfig:"AWS_REGION"`
 }
 

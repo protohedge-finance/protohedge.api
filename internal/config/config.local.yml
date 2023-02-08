@@ -4,6 +4,6 @@ redis:
   host: localhost:6379 
   useSsl: false
 rebalanceInterval: 28800
-eventbridgeRuleName: protohedge-rebalance-rule
+cloudwatchEventRule: protohedge-rebalancer-rule
 awsRegion: ap-southeast-2
 

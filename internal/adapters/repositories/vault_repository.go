@@ -10,7 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aws/aws-sdk-go-v2/service/scheduler"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatch/types"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchevents"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -117,7 +119,6 @@ func (v *vaultRepository) GetRebalanceInfo(ctx context.Context, address common.A
 	durationRemaining, rebalanceInterval, err := v.getRebalanceDurations(ctx)
 
 	if err != nil {
-		fmt.Println(err)
 		return domain.RebalanceInfo{}, err
 	}
 
@@ -128,12 +129,11 @@ func (v *vaultRepository) GetRebalanceInfo(ctx context.Context, address common.A
 }
 
 func (v *vaultRepository) getRebalanceDurations(ctx context.Context) (time.Duration, time.Duration, error) {
-	output, err := v.awsClient.SchedulerClient.GetSchedule(ctx, &scheduler.GetScheduleInput{
-		Name: &v.config.EventbridgeRuleName,
+	output, err := v.awsClient.EventsClient.DescribeRule(ctx, &cloudwatchevents.DescribeRuleInput{
+		Name: &v.config.CloudwatchEventRule,
 	})
 
 	if err != nil {
-		fmt.Println(err)
 		return time.Duration(0), time.Duration(0), err
 	}
 
@@ -141,7 +141,7 @@ func (v *vaultRepository) getRebalanceDurations(ctx context.Context) (time.Durat
 	match := pattern.FindString(*output.ScheduleExpression)
 
 	if match == "" {
-		return time.Duration(0), time.Duration(0), errors.New("Could not extract rebalance rate")
+		return time.Duration(0), time.Duration(0), errors.New("could not extract rebalance rate")
 	}
 
 	unformattedDurationInHours, err := strconv.Atoi(match)
@@ -153,14 +153,52 @@ func (v *vaultRepository) getRebalanceDurations(ctx context.Context) (time.Durat
 
 	rebalanceDuration := time.Duration(unformattedDurationInHours) * time.Hour
 
-	timeDifference := time.Now().Sub(*output.StartDate)
+	startTime := time.Now().AddDate(0, 0, -1)
+	endTime := time.Now()
+	id := "get_last_rebalance_invocation"
+	namespace := "AWS/Events"
+	metricName := "TriggeredRules"
+	dimensionName := "RuleName"
+	dimensionValue := "protohedge-rebalancer-rule"
+	var period int32 = 300
+	stat := "Average"
+	var unit types.StandardUnit = "Count"
 
-	if timeDifference.Milliseconds() < 0 {
-		return rebalanceDuration, output.StartDate.Sub(time.Now()), nil
+	metricData, err := v.awsClient.CloudwatchClient.GetMetricData(ctx, &cloudwatch.GetMetricDataInput{
+		StartTime: &startTime,
+		EndTime:   &endTime,
+		MetricDataQueries: []types.MetricDataQuery{
+			{
+				Id: &id,
+				MetricStat: &types.MetricStat{
+					Metric: &types.Metric{
+						Namespace:  &namespace,
+						MetricName: &metricName,
+						Dimensions: []types.Dimension{
+							{
+								Name:  &dimensionName,
+								Value: &dimensionValue,
+							},
+						},
+					},
+					Period: &period,
+					Stat:   &stat,
+					Unit:   unit,
+				},
+			},
+		},
+	})
+
+	if err != nil {
+		return time.Duration(0), time.Duration(0), err
 	}
 
-	timeRemainderRemaining := time.Duration(timeDifference.Milliseconds()%rebalanceDuration.Milliseconds()) * time.Millisecond
-	timeRemaining := (time.Duration(1) * time.Hour) - timeRemainderRemaining
+	if len(metricData.MetricDataResults) == 0 || len(metricData.MetricDataResults[0].Timestamps) == 0 {
+		return time.Duration(0), time.Duration(0), errors.New("no previous rebalance invocation was found")
+	}
 
-	return timeRemaining, rebalanceDuration, nil
+	lastRebalanceRun := metricData.MetricDataResults[0].Timestamps[0]
+	nextRebalanceRun := lastRebalanceRun.Add(rebalanceDuration)
+
+	return time.Until(nextRebalanceRun), rebalanceDuration, nil
 }

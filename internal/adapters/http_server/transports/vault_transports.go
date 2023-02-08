@@ -115,6 +115,7 @@ func encodeMappedResponse(mapResponse func(interface{}) interface{}) EncodeRespo
 }
 
 func errorEncoder(_ context.Context, err error, w http.ResponseWriter) {
+	fmt.Println(err)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	var message string
 	var errorCode string
