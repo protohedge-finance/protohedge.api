@@ -40,7 +40,6 @@ func CreateServer(config *cfg.Config) {
 		panic(err)
 	}
 
-	// AWS
 	awsConfig := adapters.NewClient(config)
 
 	vaultRepository := repositories.NewVaultRepository(ethClient, redisClient, config, awsConfig)
