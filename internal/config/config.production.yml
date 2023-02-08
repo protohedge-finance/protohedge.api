@@ -5,5 +5,5 @@ rebalanceInterval: 28800
 redis:
   host: apn1-ruling-tadpole-33464.upstash.io:33464
   username: default
-cloudwatchEventRule: protohedge-rebalance-rule
+cloudwatchEventRule: protohedge-rebalancer-rule
 awsRegion: ap-southeast-2
