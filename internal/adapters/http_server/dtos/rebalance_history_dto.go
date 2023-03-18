@@ -4,8 +4,8 @@ import (
 	"time"
 )
 
-type RebalanceHistoryResponseDto struct {
-	RebalanceHistory []RebalanceNoteResponseDto `json:"rebalanceHistory"`
+type RebalanceNotesResponseDto struct {
+	RebalanceNotes []RebalanceNoteResponseDto `json:"rebalanceNotes"`
 }
 
 type RebalanceNoteResponseDto struct {

@@ -18,12 +18,12 @@ type GetHistoricVaultPnlResponse struct {
 }
 
 func NewGetHistoricVaultPnl(pnlRetriever use_cases.PnlRetriever) endpoint.Endpoint {
-	var getRebalanceHistory endpoint.Endpoint
+	var getRebalanceNotes endpoint.Endpoint
 	{
-		getRebalanceHistory = CreateGetHistoricVaultPnl(pnlRetriever)
+		getRebalanceNotes = CreateGetHistoricVaultPnl(pnlRetriever)
 	}
 
-	return getRebalanceHistory
+	return getRebalanceNotes
 }
 
 func CreateGetHistoricVaultPnl(pnlRetriever use_cases.PnlRetriever) endpoint.Endpoint {

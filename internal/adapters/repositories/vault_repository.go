@@ -61,8 +61,8 @@ func (v *vaultRepository) GetVault(ctx context.Context, address common.Address) 
 	return vault, nil
 }
 
-func (v *vaultRepository) GetRebalanceHistory(ctx context.Context, address common.Address) ([]domain.RebalanceNote, error) {
-	result, err := v.redisClient.ZRangeByLex(ctx, "rebalance_history", &redis.ZRangeBy{
+func (v *vaultRepository) GetRebalanceNotes(ctx context.Context, address common.Address) ([]domain.RebalanceNote, error) {
+	result, err := v.redisClient.ZRangeByLex(ctx, "vault_notes", &redis.ZRangeBy{
 		Min: fmt.Sprintf("[%s:", strings.ToLower(address.String())),
 		Max: fmt.Sprintf("(%s;", strings.ToLower(address.String())),
 	}).Result()
@@ -71,7 +71,7 @@ func (v *vaultRepository) GetRebalanceHistory(ctx context.Context, address commo
 		return nil, err
 	}
 
-	return redis_mappings.ToRebalanceHistoryModel(result)
+	return redis_mappings.ToRebalanceNotesModel(result)
 }
 
 func (v *vaultRepository) GetHistoricVaultPnl(ctx context.Context, address common.Address) ([]domain.TimePoint, error) {

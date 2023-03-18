@@ -45,10 +45,10 @@ func CreateServer(config *cfg.Config) {
 	vaultRepository := repositories.NewVaultRepository(ethClient, redisClient, config, awsConfig)
 	vaultRetriever := use_cases.NewVaultRetriever(vaultRepository)
 	pnlRetriever := use_cases.NewPnlRetriever(vaultRepository)
-	rebalanceHistoryRetriever := use_cases.NewRebalanceHistoryRetriever(vaultRepository)
+	rebalanceNotesRetriever := use_cases.NewRebalanceNotesRetriever(vaultRepository)
 	rebalanceInfoRetriever := use_cases.NewRebalanceInfoRetriever(vaultRepository)
 
-	vaultHandler := http_transports.NewVaultHTTPHandler(logger, vaultRetriever, pnlRetriever, rebalanceInfoRetriever, rebalanceHistoryRetriever)
+	vaultHandler := http_transports.NewVaultHTTPHandler(logger, vaultRetriever, pnlRetriever, rebalanceInfoRetriever, rebalanceNotesRetriever)
 	healthHandler := http_transports.NewHealthHTTPHandler()
 
 	mux := http.NewServeMux()

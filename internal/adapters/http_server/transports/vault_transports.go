@@ -23,7 +23,7 @@ func NewVaultHTTPHandler(
 	vaultRetriever use_cases.VaultRetriever,
 	pnlRetriever use_cases.PnlRetriever,
 	rebalanceInfoRetriever use_cases.RebalanceInfoRetriever,
-	rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever) http.Handler {
+	rebalanceNotesRetriever use_cases.RebalanceNotesRetriever) http.Handler {
 
 	options := []httptransport.ServerOption{
 		httptransport.ServerErrorEncoder(errorEncoder),
@@ -34,11 +34,11 @@ func NewVaultHTTPHandler(
 	getVaultEndpoint := vault_endpoints.CreateGetVaultEndpoint(vaultRetriever)
 	getHistoricVaultPnlEndpoint := vault_endpoints.CreateGetHistoricVaultPnl(pnlRetriever)
 	getRebalanceInfoEndpoint := vault_endpoints.CreateGetRebalanceInfo(rebalanceInfoRetriever)
-	getRebalanceHistoryEndpoint := vault_endpoints.CreateGetRebalanceHistory(rebalanceHistoryRetriever)
+	getRebalanceNotesEndpoint := vault_endpoints.CreateGetRebalanceNotes(rebalanceNotesRetriever)
 
 	m.Handle("/vault/{address}", httptransport.NewServer(getVaultEndpoint, decodeGetVaultRequest, encodeMappedResponse(mapGetVault), options...))
 	m.Handle("/vault/{address}/historicPnl", httptransport.NewServer(getHistoricVaultPnlEndpoint, decodeGetHistoricPnlRequest, encodeMappedResponse(mapGetHistoricPnl), options...))
-	m.Handle("/vault/{address}/rebalanceHistory", httptransport.NewServer(getRebalanceHistoryEndpoint, decodeGetRebalanceHistoryRequest, encodeMappedResponse(mapGetRebalanceHistory), options...))
+	m.Handle("/vault/{address}/rebalanceNotes", httptransport.NewServer(getRebalanceNotesEndpoint, decodeGetRebalanceNotesRequest, encodeMappedResponse(mapGetRebalanceNotes), options...))
 	m.Handle("/vault/{address}/rebalanceInfo", httptransport.NewServer(getRebalanceInfoEndpoint, decodeGetRebalanceInfoRequest, encodeMappedResponse(mapGetRebalanceInfo), options...))
 
 	return m
@@ -66,7 +66,7 @@ func decodeGetHistoricPnlRequest(ctx context.Context, r *http.Request) (interfac
 	return vault_endpoints.GetHistoricVaultPnlRequest{Address: address}, nil
 }
 
-func decodeGetRebalanceHistoryRequest(ctx context.Context, r *http.Request) (interface{}, error) {
+func decodeGetRebalanceNotesRequest(ctx context.Context, r *http.Request) (interface{}, error) {
 	vars := mux.Vars(r)
 
 	address, ok := vars["address"]
@@ -74,7 +74,7 @@ func decodeGetRebalanceHistoryRequest(ctx context.Context, r *http.Request) (int
 		return nil, addressNotFound
 	}
 
-	return vault_endpoints.GetRebalanceHistoryRequest{Address: address}, nil
+	return vault_endpoints.GetRebalanceNotesRequest{Address: address}, nil
 }
 
 func decodeGetRebalanceInfoRequest(ctx context.Context, r *http.Request) (interface{}, error) {
@@ -98,8 +98,8 @@ func mapGetHistoricPnl(response interface{}) interface{} {
 	return http_server_mappings.ToHistoricPnlDto(response.(vault_endpoints.GetHistoricVaultPnlResponse).HistoricVaultPnl)
 }
 
-func mapGetRebalanceHistory(response interface{}) interface{} {
-	return http_server_mappings.ToRebalanceHistoryDto(response.(vault_endpoints.GetRebalanceHistoryResponse).RebalanceHistory)
+func mapGetRebalanceNotes(response interface{}) interface{} {
+	return http_server_mappings.ToRebalanceNotesDto(response.(vault_endpoints.GetRebalanceNotesResponse).RebalanceNotes)
 }
 
 func mapGetRebalanceInfo(response interface{}) interface{} {

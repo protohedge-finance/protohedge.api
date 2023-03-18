@@ -39,18 +39,18 @@ func ToHistoricPnlDto(historicPnl []domain.TimePoint) *http_server_dtos.Historic
 	}
 }
 
-func ToRebalanceHistoryDto(rebalanceHistory []domain.RebalanceNote) *http_server_dtos.RebalanceHistoryResponseDto {
-	rebalanceNotes := []http_server_dtos.RebalanceNoteResponseDto{}
+func ToRebalanceNotesDto(rebalanceNotes []domain.RebalanceNote) *http_server_dtos.RebalanceNotesResponseDto {
+	rebalanceNotesResponseDto := []http_server_dtos.RebalanceNoteResponseDto{}
 
-	for _, p := range rebalanceHistory {
-		rebalanceNotes = append(rebalanceNotes, http_server_dtos.RebalanceNoteResponseDto{
+	for _, p := range rebalanceNotes {
+		rebalanceNotesResponseDto = append(rebalanceNotesResponseDto, http_server_dtos.RebalanceNoteResponseDto{
 			Note: p.Note,
 			Date: p.Date,
 		})
 	}
 
-	return &http_server_dtos.RebalanceHistoryResponseDto{
-		RebalanceHistory: rebalanceNotes,
+	return &http_server_dtos.RebalanceNotesResponseDto{
+		RebalanceNotes: rebalanceNotesResponseDto,
 	}
 }
 

@@ -8,10 +8,10 @@ import (
 	"github.com/protohedge/protohedge.api/internal/core/domain"
 )
 
-func ToRebalanceHistoryModel(rebalanceHistoryDto []string) ([]domain.RebalanceNote, error) {
-	rebalanceHistory := []domain.RebalanceNote{}
+func ToRebalanceNotesModel(rebalanceNotesDto []string) ([]domain.RebalanceNote, error) {
+	rebalanceNotes := []domain.RebalanceNote{}
 
-	for _, rebalance_note_record := range rebalanceHistoryDto {
+	for _, rebalance_note_record := range rebalanceNotesDto {
 		splitRebalanceNote := strings.Split(rebalance_note_record, ":")
 
 		if len(splitRebalanceNote) != 3 {
@@ -25,12 +25,11 @@ func ToRebalanceHistoryModel(rebalanceHistoryDto []string) ([]domain.RebalanceNo
 			return nil, err
 		}
 
-		rebalanceHistory = append(rebalanceHistory, domain.RebalanceNote{
+		rebalanceNotes = append(rebalanceNotes, domain.RebalanceNote{
 			Date: time.UnixMilli(timestamp).UTC(),
 			Note: note,
 		})
 	}
 
-	return rebalanceHistory, nil
-
+	return rebalanceNotes, nil
 }

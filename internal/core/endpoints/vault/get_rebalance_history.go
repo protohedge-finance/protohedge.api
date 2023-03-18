@@ -9,31 +9,31 @@ import (
 	"github.com/protohedge/protohedge.api/internal/core/use_cases"
 )
 
-type GetRebalanceHistoryRequest struct {
+type GetRebalanceNotesRequest struct {
 	Address string
 }
 
-type GetRebalanceHistoryResponse struct {
-	RebalanceHistory []domain.RebalanceNote
+type GetRebalanceNotesResponse struct {
+	RebalanceNotes []domain.RebalanceNote
 }
 
-func NewGetRebalanceHistory(rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever) endpoint.Endpoint {
-	var getRebalanceHistory endpoint.Endpoint
+func NewGetRebalanceNotes(rebalanceNotesRetriever use_cases.RebalanceNotesRetriever) endpoint.Endpoint {
+	var getRebalanceNotes endpoint.Endpoint
 	{
-		getRebalanceHistory = CreateGetRebalanceHistory(rebalanceHistoryRetriever)
+		getRebalanceNotes = CreateGetRebalanceNotes(rebalanceNotesRetriever)
 
 	}
 
-	return getRebalanceHistory
+	return getRebalanceNotes
 }
 
-func CreateGetRebalanceHistory(rebalanceHistoryRetriever use_cases.RebalanceHistoryRetriever) endpoint.Endpoint {
+func CreateGetRebalanceNotes(rebalanceNotesRetriever use_cases.RebalanceNotesRetriever) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(GetRebalanceHistoryRequest)
-		rebalanceHistory, err := rebalanceHistoryRetriever.RetrieveRebalanceHistory(ctx, common.HexToAddress(req.Address))
+		req := request.(GetRebalanceNotesRequest)
+		rebalanceNotes, err := rebalanceNotesRetriever.RetrieveRebalanceNotes(ctx, common.HexToAddress(req.Address))
 
-		return GetRebalanceHistoryResponse{
-			RebalanceHistory: rebalanceHistory,
+		return GetRebalanceNotesResponse{
+			RebalanceNotes: rebalanceNotes,
 		}, err
 	}
 }
