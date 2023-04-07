@@ -11,4 +11,5 @@ type Vault struct {
 	PositionManagers   []PositionManager
 	VaultWorth         *big.Int
 	AvailableLiquidity *big.Int
+	Pnl                *big.Int
 }

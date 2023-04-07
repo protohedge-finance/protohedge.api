@@ -17,5 +17,6 @@ func ToVaultModel(vault vault_contract.VaultStats) domain.Vault {
 		PositionManagers:   positionManagers,
 		VaultWorth:         vault.VaultWorth,
 		AvailableLiquidity: vault.AvailableLiquidity,
+		Pnl:                vault.Pnl,
 	}
 }

@@ -5,4 +5,5 @@ type VaultResponseDto struct {
 	PositionManagers   []PositionManagerResponseDto `json:"positionManagers"`
 	VaultWorth         string                       `json:"vaultWorth"`
 	AvailableLiquidity string                       `json:"availableLiquidity"`
+	Pnl                string                       `json:"pnl"`
 }

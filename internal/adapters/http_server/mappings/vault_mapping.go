@@ -17,6 +17,7 @@ func ToVaultResponseDto(vault domain.Vault) http_server_dtos.VaultResponseDto {
 		PositionManagers:   positionManagersDtos,
 		VaultWorth:         vault.VaultWorth.String(),
 		AvailableLiquidity: vault.AvailableLiquidity.String(),
+		Pnl:                vault.Pnl.String(),
 	}
 }
 
