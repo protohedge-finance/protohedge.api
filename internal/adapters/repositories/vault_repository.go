@@ -62,7 +62,7 @@ func (v *vaultRepository) GetVault(ctx context.Context, address common.Address) 
 }
 
 func (v *vaultRepository) GetRebalanceNotes(ctx context.Context, address common.Address) ([]domain.RebalanceNote, error) {
-	result, err := v.redisClient.ZRangeByLex(ctx, "vault_notes", &redis.ZRangeBy{
+	result, err := v.redisClient.ZRevRangeByLex(ctx, "vault_notes", &redis.ZRangeBy{
 		Min: fmt.Sprintf("[%s:", strings.ToLower(address.String())),
 		Max: fmt.Sprintf("(%s;", strings.ToLower(address.String())),
 	}).Result()
