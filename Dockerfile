@@ -16,4 +16,3 @@ EXPOSE 8080
 WORKDIR /app/cmd/protohedge.api
 
 CMD [ "./protohedge-api" ]
-
