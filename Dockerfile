@@ -14,4 +14,5 @@ RUN go build -o ./cmd/protohedge.api/protohedge-api ./cmd/protohedge.api
 EXPOSE 8080 
 
 WORKDIR /app/cmd/protohedge.api
+
 CMD [ "./protohedge-api" ]
